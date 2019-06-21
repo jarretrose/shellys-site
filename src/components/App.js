@@ -1,11 +1,26 @@
 // main React file
 import React from 'react';
-import Splash from './Splash';
+import { makeStyles } from '@material-ui/core/styles';
+import Nav from './Nav.js'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    margin: '0 0',
+    backgroundImage: `url("../../images/woman-in-blue.png")`,
+    backgroundSize: 'cover',
+    width: '100vw',
+    height: '100vh'
+  },
+}));
 
 const App = () => {
+  const classes = useStyles();
+
   return (
-    // <Nav />
-    <Splash />
+    <div className={classes.root}>
+      <Nav />
+    </div>
   );
 };
 

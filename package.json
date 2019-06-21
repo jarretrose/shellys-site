@@ -8,6 +8,7 @@
     "build": "webpack --mode production --config ./webpack.prod.config.js",
     "dev": "webpack --mode development",
     "start:dev": "npm run dev -- --watch & nodemon server/index.js",
+    "start": "node server/index.js",
     "heroku-postbuild": "webpack -p"
   },
   "repository": {

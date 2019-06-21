@@ -1,11 +1,10 @@
 // main React file
 import React from 'react';
+import Splash from './Splash';
 
 const App = () => {
   return (
-    <div>
-      <p>React Test.</p>
-    </div>
+    <Splash />
   );
 };
 

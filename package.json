@@ -4,13 +4,17 @@
   "description": "personal website for Shelly's art projects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production --config ./webpack.prod.config.js",
+    "dev": "webpack --mode development",
+    "postinstall": "npm run webpack",
+    "start:dev": "npm run dev -- --watch & nodemon server/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jarretrose/shellys-site.git"
   },
-  "author": "jarretrose@gmail.com",
+  "author": "Jarret Rose <jarretrose@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jarretrose/shellys-site/issues"
@@ -29,6 +33,10 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5"
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.4"
   }
 }

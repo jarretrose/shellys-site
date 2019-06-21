@@ -4,6 +4,7 @@ import Splash from './Splash';
 
 const App = () => {
   return (
+    // <Nav />
     <Splash />
   );
 };

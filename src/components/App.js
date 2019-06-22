@@ -7,8 +7,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     margin: '0 0',
-    backgroundImage: `url("../../images/woman-in-blue.png")`,
+    backgroundImage: `url("../../images/girl-in-pink.jpg")`,
     backgroundSize: 'cover',
+    backgroundPosition: 'center center',
     width: '100vw',
     height: '100vh'
   },

@@ -43,7 +43,13 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: '#d1939d',
+    [theme.breakpoints.up('sm')]: {
+      backgroundColor: 'rgba(0,0,0,0)',
+      border: 'none',
+    },
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'rgba(247,231,206,1)',
+    },
   },
   content: {
     flexGrow: 1,
@@ -64,7 +70,7 @@ export default function Nav (props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
+      {/* <Divider /> */}
       <List>
         {['Copywork', 'Original', 'Post-its', 'Random', 'Words', 'Coloring Books', 'About Me', 'Contact'].map((text, index) => (
           <ListItem button key={text}>

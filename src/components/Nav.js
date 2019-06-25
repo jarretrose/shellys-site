@@ -23,6 +23,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
+  satisfyFont: {
+    fontFamily: "'Satisfy', cursive",
+  },
+  navStyles: {
+    fontFamily: "'Satisfy', cursive",
+    fontSize: "1.25rem"
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -70,11 +77,10 @@ export default function Nav (props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      {/* <Divider /> */}
       <List>
         {['Copywork', 'Original', 'Post-its', 'Random', 'Words', 'Coloring Books', 'About Me', 'Contact'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemText primary={text} />
+            <ListItemText classes={{primary: classes.navStyles}} primary={text} />
           </ListItem>
         ))}
       </List>
@@ -95,8 +101,8 @@ export default function Nav (props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            {'\u2665 Shelly Sketches \u2665'}
+          <Typography className={classes.satisfyFont} variant="h4" noWrap>
+            {'Shelly Sketches'}
           </Typography>
         </Toolbar>
       </AppBar>

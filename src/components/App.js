@@ -2,29 +2,43 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Nav from './Nav.js'
+import Nav from './Nav.js';
+import Content from './Content.js';
+
+const drawerWidth = 160;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    margin: '0',
+    flexGrow: 0,
+  },
+  background: {
+    height: '100vh',
     backgroundColor: '#000',
-    [theme.breakpoints.down('sm')]: {
-      backgroundImage: `url("../../images/girl-in-pink-small.png")`,
+    backgroundImage: `url("../../images/girl-in-pink-small.png")`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    backgroundAttachment: 'fixed',
+    [theme.breakpoints.up('sm')]: {
+      backgroundImage: `url("../../images/girl-in-pink.png")`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center right',
-      width: '100vw',
-      height: '100vh',
+      backgroundPosition: 'center center',
+      backgroundAttachment: 'fixed',
     },
-    [theme.breakpoints.up('md')]: {
-      backgroundImage: `url("../../images/girl-in-pink-test.png")`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center left',
-      width: '100vw',
-      height: '100vh',
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 
@@ -32,9 +46,15 @@ const App = () => {
   const classes = useStyles();
 
   return (
+    <div className={classes.background}>
     <div className={classes.root}>
       <CssBaseline />
       <Nav />
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} /> 
+          <Content />
+      </main>
+    </div>
     </div>
   );
 };

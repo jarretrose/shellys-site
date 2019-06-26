@@ -1,21 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 160;
 
@@ -23,8 +19,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  satisfyFont: {
+  titleFont: {
     fontFamily: "'Satisfy', cursive",
+    textDecoration: 'none',
+    color: 'black',
   },
   navStyles: {
     fontFamily: "'Satisfy', cursive",
@@ -49,17 +47,11 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: 'rgba(247,231,206,1)',
     [theme.breakpoints.up('sm')]: {
       backgroundColor: 'rgba(0,0,0,0)',
       border: 'none',
     },
-    [theme.breakpoints.down('sm')]: {
-      backgroundColor: 'rgba(247,231,206,1)',
-    },
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
 }));
 
@@ -76,13 +68,48 @@ export default function Nav (props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <List>
-        {['Copywork', 'Original', 'Post-its', 'Random', 'Words', 'Coloring Books', 'About Me', 'Contact'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText classes={{primary: classes.navStyles}} primary={text} />
+        <List>
+
+          <ListItem button component={Link} to={'/original'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Original' />
           </ListItem>
-        ))}
-      </List>
+
+          <ListItem button component={Link} to={'/copywork'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Copywork' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/post-its'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Post-Its' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/random'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Random' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/words'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Words' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/coloring'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Coloring Books' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/about'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='About Me' />
+          </ListItem>
+
+          <ListItem button component={Link} to={'/contact'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Contact' />
+          </ListItem>
+        </List>
     </div>
   );
 
@@ -100,8 +127,8 @@ export default function Nav (props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.satisfyFont} variant="h4" noWrap>
-            {'Shelly Sketches'}
+          <Typography component={Link} to={'/'} className={classes.titleFont} variant="h4" noWrap>
+            Shelly Sketches
           </Typography>
         </Toolbar>
       </AppBar>

@@ -1,31 +1,64 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import axios from 'axios';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import { callbackify } from 'util';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
-    flexGrow: 0,
-    overflowX: 'auto',
-    overflowY: 'hidden',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: 'rgba(0,0,0,0)',
   },
-  stuff: {
-    minWidth: 100,
-    height: 'auto'
+  gridList: {
+    width: 'calc(100vw - 160px)',
   },
-}));
+});
 
-const Original = () => {
-  const classes = useStyles();
+class Original extends Component {
+  constructor() {
+    super()
+    this.state = {
+      images: []
+    };
+  };
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.stuff}>
-        
-        asdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaaasdfaaaa
-        
-      </div>
-    </div>
-  );
+  componentDidMount() {
+    axios.get('/api/images')
+      .then(images => images.data)
+      .then(images => this.setState({ images: images }))
+  }
+
+  render() {
+
+    const { classes } = this.props;
+    const { images } = this.state;
+
+    return (
+
+      !images.length ? null :
+
+        <div className={classes.root}>
+          <GridList cellHeight={160} className={classes.gridList} cols={1}>
+            {images.map(img => (
+              <GridListTile style={{background: 'rgba(0,0,0,.5' }} key={img.name} cols={1}>
+                <img src={img.imageURL} alt={img.name} />
+              </GridListTile>
+            ))}
+          </GridList>
+
+        </div>
+    )
+  };
 };
 
-export default Original;
+Original.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Original);

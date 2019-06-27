@@ -16,11 +16,33 @@
   <meta name="msapplication-TileColor" content="#603cba">
   <meta name="msapplication-config" content="./favicons/browserconfig.xml">
   <meta name="theme-color" content="#fffaf0">
+  <style>
+    body {
+      margin: 0;
+      overscroll-behavior: none;
+      background-image: url(images/girl-in-pink.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
 
+    @media (max-width: 480px) {
+      body {
+        background-image: url(images/girl-in-pink-small.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+    }
+    
+  </style>
   <script src='/dist/main.js' defer></script>
   <title>Shelly Sketches</title>
 </head>
 <body>
+  <div class="bgimage"></div>
   <div id='root'></div>
 </body>
 </html>

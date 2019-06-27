@@ -11,22 +11,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 0,
   },
-  background: {
-    height: '100vh',
-    backgroundColor: '#000',
-    backgroundImage: `url("../../images/girl-in-pink-small.png")`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center center',
-    backgroundAttachment: 'fixed',
-    [theme.breakpoints.up('sm')]: {
-      backgroundImage: `url("../../images/girl-in-pink.png")`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      backgroundAttachment: 'fixed',
-    },
-  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,

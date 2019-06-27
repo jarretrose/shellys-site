@@ -14,8 +14,6 @@ import Contact from './Contact';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
   }
 }));
 

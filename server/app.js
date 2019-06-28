@@ -3,12 +3,9 @@
 const express = require('express');
 const db = require('./db')
 const path = require('path');
-const morgan = require('morgan');
 const api = require('./api');
 
 const app = express();
-
-app.use(morgan('combined'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

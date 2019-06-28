@@ -64,7 +64,7 @@ class Original extends Component {
       !images.length ? null :
 
         <div className={classes.root}>
-          <GridList cellHeight={180} spacing={10} className={classes.gridList} cols={getNumberOfColumns()}>
+          <GridList cellHeight={180} spacing={8} className={classes.gridList} cols={getNumberOfColumns()}>
             {images.map(img => (
               <GridListTile style={{background: 'rgba(0,0,0,.5' }} key={img.name} cols={getImgColSpan(img.id)} rows={2}>
                 <img src={img.imageURL} alt={img.name} />

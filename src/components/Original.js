@@ -49,11 +49,11 @@ class Original extends Component {
 
     const getImgColSpan = (id) => {
       if (isWidthUp('xl', width)) {
-        if (id === 1 || id === 9 || id === 17 || id === 22) return 2;
+        if (id === 1) return 2;
         else return 1;
       };
       if (isWidthUp('lg', width)) { 
-        if (id === 1 || id === 7 || id === 11 || id === 17) return 2;
+        if (id === 1) return 2;
         else return 1;
       };
       return 1;

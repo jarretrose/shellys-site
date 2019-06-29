@@ -4,9 +4,11 @@ const express = require('express');
 const db = require('./db')
 const path = require('path');
 const api = require('./api');
+const morgan = require('morgan')
 
 const app = express();
 
+app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));

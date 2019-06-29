@@ -32,7 +32,7 @@ class Original extends Component {
   componentDidMount() {
     axios.get('/api/images')
       .then(images => images.data)
-      .then(images => this.setState({ images: images }))
+      .then(images => this.setState({ images }))
   };
 
   render() {
@@ -40,6 +40,7 @@ class Original extends Component {
     const { classes, width } = this.props;
     const { images } = this.state;
 
+    // number of columns in the gallery
     const getNumberOfColumns = () => {
       if (isWidthUp('xl', width)) { return 4 }
       if (isWidthUp('lg', width)) { return 3 }
@@ -47,13 +48,19 @@ class Original extends Component {
       if (isWidthDown('sm', width)) { return 1 }
     };
 
-    const getImgColSpan = (id) => {
+    // how many columns the image spans
+    const getImgColSpan = (idx) => {
       if (isWidthUp('xl', width)) {
-        if (id === 1) return 2;
+        if (idx === 0 || idx%7 === 0) return 2;
         else return 1;
       };
-      if (isWidthUp('lg', width)) { 
-        if (id === 1) return 2;
+      if (isWidthUp('lg', width)) {
+        let lastDigit = parseInt(idx.toString().split('').pop())
+        if (lastDigit === 0 || lastDigit === 6) return 2;
+        else return 1;
+      };
+      if (isWidthUp('md', width)) { 
+        if (idx === 0 || idx%3 === 0) return 2;
         else return 1;
       };
       return 1;
@@ -61,12 +68,13 @@ class Original extends Component {
 
     return (
 
+      // if the images haven't loaded, do nothing
       !images.length ? null :
 
         <div className={classes.root}>
           <GridList cellHeight={180} spacing={8} className={classes.gridList} cols={getNumberOfColumns()}>
-            {images.map(img => (
-              <GridListTile style={{background: 'rgba(0,0,0,.5' }} key={img.name} cols={getImgColSpan(img.id)} rows={2}>
+            {images.map((img, idx) => (
+              <GridListTile style={{background: 'rgba(0,0,0,.5' }} key={img.name} cols={getImgColSpan(idx)} rows={2}>
                 <img src={img.imageURL} alt={img.name} />
               </GridListTile>
             ))}

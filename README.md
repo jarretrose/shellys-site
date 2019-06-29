@@ -1,4 +1,3 @@
 Personal Website for Shelly's Artwork
 
-Node, Express, React / Redux, Postgres, Webpack
-Bootstrap
+Node, Express, React, Postgres, Sequelize, Webpack, Material-UI

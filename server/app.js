@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
 
-app.use('/api', api);
-
 app.get('/', (req, res) => res.sendFile(index.html));
+
+app.use('/api', api);
 
 module.exports = app;

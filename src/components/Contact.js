@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div>
       <CssBaseline />
-        Contact ME and stuff
+      Contact ME and stuff
     </div>
   );
 };

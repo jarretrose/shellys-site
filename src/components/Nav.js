@@ -109,6 +109,12 @@ export default function Nav (props) {
             onClick={mobileOpen ? handleDrawerToggle : null }>
             <ListItemText classes={{primary: classes.navStyles}} primary='Contact' />
           </ListItem>
+
+          {/* <ListItem button component={Link} to={'/signin'} 
+            onClick={mobileOpen ? handleDrawerToggle : null }>
+            <ListItemText classes={{primary: classes.navStyles}} primary='Sign in' />
+          </ListItem> */}
+
         </List>
     </div>
   );

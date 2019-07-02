@@ -23,7 +23,7 @@ const styles = theme => ({
 
 class Original extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       images: []
     };

@@ -25,7 +25,11 @@
     "@material-ui/icons": "^4.2.1",
     "aws-sdk": "^2.485.0",
     "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "multer-s3": "^2.9.0",
@@ -34,7 +38,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "sequelize": "^5.8.12"
+    "sequelize": "^5.8.12",
+    "sequelize-values": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

@@ -5,13 +5,13 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const saltRounds = parseInt(process.env.saltRounds);
+const _saltRounds = parseInt(process.env.saltRounds);
 
 const init = () => {
   return db.sync({ force: true })
     .then(() => Promise.all([
-      User.create({ name: 'Shelly', login: 'shelly@email.com', password: bcrypt.hashSync('123456', saltRounds)}),
-      User.create({ name: 'Jarret', login: 'jarret@email.com', password: bcrypt.hashSync('123456', saltRounds)}),
+      User.create({ name: 'Shelly', login: 'shelly@email.com', password: bcrypt.hashSync('123456', _saltRounds)}),
+      User.create({ name: 'Jarret', login: 'jarret@email.com', password: bcrypt.hashSync('123456', _saltRounds)}),
       Image.create({ name: 'Demo', category: 'copywork', imageURL: 'images/poison-heart.png' }),   
       Image.create({ name: 'Demo2', category: 'copywork', imageURL: 'images/poison-heart.png' }),
       Image.create({ name: 'Demo3', category: 'copywork', imageURL: 'images/poison-heart.png' }),

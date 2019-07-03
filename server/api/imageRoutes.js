@@ -3,10 +3,13 @@ const router = express.Router();
 const db = require('../db');
 const Image = require('../db/models/Image');
 
-router.get('/', (req, res, next) => {
-  Image.findAll().
-    then(images => res.send(images)
-  );
-});
+// image routes: /api/images/
+
+const getAllImages = (req, res, next) => {
+  Image.findAll()
+    .then(images => res.send(images))
+};
+
+router.get('/', getAllImages);
 
 module.exports = router;

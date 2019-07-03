@@ -5,7 +5,7 @@ const userService = require('../services/index');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const saltRounds = parseInt(process.env.saltRounds);
+const _saltRounds = parseInt(process.env.saltRounds);
 
 const login = (req, res) => {
   return authService.authenticate(req.body)
@@ -37,7 +37,7 @@ const register = (req, res) => {
       const user = {
         name: req.body.name,
         login: req.body.login,
-        password: bcrypt.hashSync(req.body.password, saltRounds)
+        password: bcrypt.hashSync(req.body.password, _saltRounds)
       }
       return userService.addUser(user)
         .then(() => res.send({ success: true }))

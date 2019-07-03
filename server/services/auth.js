@@ -1,7 +1,7 @@
 // this handles JWT authentication
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Users = require('../server/db/models/User');
+const Users = require('../db/models/User');
 const dotenv = require('dotenv');
 dotenv.config();
 

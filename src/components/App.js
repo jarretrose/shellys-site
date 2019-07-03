@@ -12,6 +12,7 @@ import Words from './Words';
 import Coloring from './Coloring';
 import About from './About';
 import Contact from './Contact';
+import Signin from './Signin';
 
 const drawerWidth = 160;
 
@@ -54,6 +55,7 @@ const App = () => {
               <Route path='/coloring' component={Coloring} />
               <Route path='/about' component={About} />
               <Route path='/contact' component={Contact} />
+              <Route path='/signin' component={Signin} />
             </Switch>
           </HashRouter>
         </main>

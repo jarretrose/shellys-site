@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Nav (props) {
+export default function Nav(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -68,54 +68,54 @@ export default function Nav (props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-        <List>
+      <List>
 
-          <ListItem button component={Link} to={'/original'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Original' />
-          </ListItem>
+        <ListItem button component={Link} to={'/original'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Original' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/copywork'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Copywork' />
-          </ListItem>
+        <ListItem button component={Link} to={'/copywork'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/post-its'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Post-Its' />
-          </ListItem>
+        <ListItem button component={Link} to={'/post-its'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Post-Its' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/random'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Random' />
-          </ListItem>
+        <ListItem button component={Link} to={'/random'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Random' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/words'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Words' />
-          </ListItem>
+        <ListItem button component={Link} to={'/words'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Words' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/coloring'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Coloring Books' />
-          </ListItem>
+        <ListItem button component={Link} to={'/coloring'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Coloring Books' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/about'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='About Me' />
-          </ListItem>
+        <ListItem button component={Link} to={'/about'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='About Me' />
+        </ListItem>
 
-          <ListItem button component={Link} to={'/contact'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Contact' />
-          </ListItem>
+        <ListItem button component={Link} to={'/contact'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Contact' />
+        </ListItem>
 
-          {/* <ListItem button component={Link} to={'/signin'} 
-            onClick={mobileOpen ? handleDrawerToggle : null }>
-            <ListItemText classes={{primary: classes.navStyles}} primary='Sign in' />
-          </ListItem> */}
+        <ListItem button component={Link} to={'/signin'}
+          onClick={mobileOpen ? handleDrawerToggle : null}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Sign in' />
+        </ListItem>
 
-        </List>
+      </List>
     </div>
   );
 
@@ -168,7 +168,7 @@ export default function Nav (props) {
           </Drawer>
         </Hidden>
       </nav>
-      
+
     </div>
   );
 }

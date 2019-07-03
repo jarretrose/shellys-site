@@ -12,13 +12,14 @@ const login = (req, res) => {
     .then(token => {
       res.send({
         success: true,
-        data: { token }
+        data: { token },
+        message: 'Log in successful.'
       });
     })
     .catch(err => {
       res.send({
         success: false, 
-        message: err.message // need to fix later
+        message: 'Log in failed.'
       });
     })
 };

@@ -19,10 +19,11 @@ const login = (req, res) => {
       });
     })
     .catch(err => {
-      res.send({
-        success: false, 
-        message: 'Log in failed.'
-      });
+      console.log(err)
+      res.status(401).send({
+          success: false, 
+          message: 'Log in failed to authenticate.'
+        });
     })
 };
 

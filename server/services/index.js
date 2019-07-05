@@ -1,5 +1,5 @@
 const sequelize = require('../db/index');
-const Users = require('../db/models/User');
+const Users = require('../models/User');
 
 const addUser = user => Users.create(user);
 

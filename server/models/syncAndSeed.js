@@ -1,6 +1,6 @@
 const User = require('./User');
 const Image = require('./Image');
-const db = require('../index');
+const db = require('../db');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();

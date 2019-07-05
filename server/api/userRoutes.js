@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const User = require('../db/models/User');
+const User = require('../models/User');
 const checkAuth = require('../middlewares/auth')
 
 // user routes: /api/users/

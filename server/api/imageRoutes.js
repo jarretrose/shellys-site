@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const Image = require('../db/models/Image');
+const Image = require('../models/Image');
 
 // image routes: /api/images/
 

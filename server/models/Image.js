@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('../index');
+const db = require('../db');
 
 const Image = db.define('image', {
   name: {

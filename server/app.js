@@ -1,10 +1,9 @@
-// express config
-
 const express = require('express');
 const db = require('./db')
 const path = require('path');
-const api = require('./api');
 const morgan = require('morgan')
+
+const api = require('./api');
 
 const app = express();
 
@@ -17,5 +16,17 @@ app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
 app.get('/', (req, res) => res.sendFile(index.html));
 
 app.use('/api', api);
+
+// custom error handler
+app.use(function(err, req, res, next) {
+
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: req.app.get('env') === 'development' ? err : {},
+  });
+
+});
+
 
 module.exports = app;

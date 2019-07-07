@@ -45,7 +45,6 @@ const App = () => {
         <Nav />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <HashRouter>
             <Switch>
               <Route path='/original' component={Original} />
               <Route path='/copywork' component={Copywork} />
@@ -57,7 +56,6 @@ const App = () => {
               <Route path='/contact' component={Contact} />
               <Route path='/signin' component={Signin} />
             </Switch>
-          </HashRouter>
         </main>
       </div>
     </div>

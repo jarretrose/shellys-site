@@ -11,7 +11,10 @@ const Words = () => {
   return (
     <div>
       <CssBaseline />
-        Words words words
+        Words words words. Using this page to test token auth.
+        {
+          
+        }
     </div>
   );
 };

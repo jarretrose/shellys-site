@@ -7,13 +7,8 @@ const User = db.define('user', {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  name: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
-  },
   // email will be used to login to services
-  login: {
+  email: {
     type: Sequelize.STRING, 
     allowNull: false,
     unique: true,

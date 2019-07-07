@@ -10,8 +10,10 @@ const _saltRounds = parseInt(process.env.saltRounds);
 const init = () => {
   return db.sync({ force: true })
     .then(() => Promise.all([
-      User.create({ name: 'Shelly', login: 'shelly@email.com', password: bcrypt.hashSync('123456', _saltRounds)}),
-      User.create({ name: 'Jarret', login: 'jarret@email.com', password: bcrypt.hashSync('123456', _saltRounds)}),
+      User.create({ email: 'shelly@email.com', password: bcrypt.hashSync('123456', _saltRounds)}),
+      User.create({ email: 'jarret@email.com', password: bcrypt.hashSync('abcdef', _saltRounds)}),
+      User.create({ email: 'michelle@email.com', password: bcrypt.hashSync('1a2b3c', _saltRounds)}),
+      User.create({ email: 'jay@email.com', password: bcrypt.hashSync('a1b2c3', _saltRounds)}),      
       Image.create({ name: 'Demo', category: 'copywork', imageURL: 'images/poison-heart.png' }),   
       Image.create({ name: 'Demo2', category: 'copywork', imageURL: 'images/poison-heart.png' }),
       Image.create({ name: 'Demo3', category: 'copywork', imageURL: 'images/poison-heart.png' }),

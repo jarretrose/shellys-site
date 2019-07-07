@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import App from './components/App';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, BrowserRouter } from 'react-router-dom';
 
 
 const root = document.getElementById('root')

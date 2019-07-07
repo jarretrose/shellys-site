@@ -72,7 +72,9 @@ class Signin extends Component {
   handleSubmit(e) {
     const {email, password} = this.state;
     e.preventDefault();
-    axios.post('/api/auth/login', {login: email, password: password})
+    
+    // axios post request
+
     this.setState({
       email: '',
       password: '',

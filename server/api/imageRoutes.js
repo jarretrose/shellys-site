@@ -5,11 +5,13 @@ const Image = require('../models/Image');
 
 // image routes: /api/images/
 
+// route controllers
 const getAllImages = (req, res, next) => {
   Image.findAll()
     .then(images => res.send(images))
 };
 
+// route handlers
 router.get('/', getAllImages);
 
 module.exports = router;

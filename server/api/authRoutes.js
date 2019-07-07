@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const _saltRounds = parseInt(process.env.saltRounds);
 
 // routes mounted on: /api/auth
 
@@ -13,7 +18,6 @@ const User = require('../models/User');
 
 // cannot log in to the app without a valid email and password
 // cannot log into the app with a blank email or password
-// make certain that email is not already in use
 const validateUser = (user) => {
 
   const validEmail = typeof user.email === 'string' &&
@@ -25,6 +29,7 @@ const validateUser = (user) => {
   return validEmail && validPassword;
 }
 
+// check to see if email is already in use
 function checkForUser(email) {
   let results = User.findOne({
     where: {
@@ -39,15 +44,13 @@ router.post('/signup', async (req, res, next) => {
   let doesUserExist = await checkForUser(req.body.email.toLowerCase());
   let isUserValid = await validateUser(req.body);
 
+  // if the info is valid and the email is NOT already in use
   if (isUserValid && !doesUserExist) {
-    let newUser = {
+    const newUser = {
       email: req.body.email,
-      password: req.body.password
-    };
-    res.json({
-      message: 'user is valid',
-      newUser
-    });
+      password: bcrypt.hashSync('123456', _saltRounds)
+    }
+    User.create(newUser).then(() => res.sendStatus(200));
   } else {
     next(new Error('Invalid User.'));
   };

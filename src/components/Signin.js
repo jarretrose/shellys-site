@@ -34,10 +34,11 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(250,250,250, .95)',
+    backgroundColor: 'rgba(250,250,250, .90)',
   },
   avatar: {
     margin: theme.spacing(1),
+    color: theme.palette.secondary.contrastText,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -73,7 +74,7 @@ class Signin extends Component {
     const {email, password} = this.state;
     e.preventDefault();
     
-    // axios post request
+    // axios post
 
     this.setState({
       email: '',

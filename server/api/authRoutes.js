@@ -39,6 +39,7 @@ function checkForUser(email) {
   return results;
 };
 
+// signup for a local account
 router.post('/signup', async (req, res, next) => {
 
   let doesUserExist = await checkForUser(req.body.email.toLowerCase());
@@ -56,5 +57,10 @@ router.post('/signup', async (req, res, next) => {
   };
 
 });
+
+// sign in with a local account
+router.post('/signin', async (req, res, next) => {
+  
+})
 
 module.exports = router;

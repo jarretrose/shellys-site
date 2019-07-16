@@ -6,11 +6,12 @@ const User = require('../models/User');
 // user routes: /api/users/
 
 // route controllers
-// const getAllUsers = (req, res, next) => {
-//   User.findAll()
-//   .then(users => res.send(users));
-// };
+const getAllUsers = (req, res, next) => {
+  User.findAll()
+  .then(users => res.send(users));
+};
 
+// ROUTE CONTROLLERS
 // const getUserByEmail = (req, res, next) => {
 //   User.findOne({
 //     where: {
@@ -20,8 +21,8 @@ const User = require('../models/User');
 //   .then(user => res.send(user))
 // }
 
-// route handlers
-// router.get('/', getAllUsers);
+// ROUTE HANDLERS
+router.get('/', getAllUsers);
 // router.get('/email', getUserByEmail);
 
 module.exports = router;

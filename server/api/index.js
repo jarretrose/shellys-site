@@ -14,7 +14,7 @@ all routes mounted on /api
 */
 
 router.use('/images', imageRoutes);
-// router.use('/users', userRoutes);
-router.use('/auth', authRoutes)
+router.use('/users', userRoutes);
+// router.use('/auth', authRoutes)
 
 module.exports = router;

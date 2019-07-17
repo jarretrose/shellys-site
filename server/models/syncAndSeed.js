@@ -1,17 +1,10 @@
 const User = require('./User');
 const Image = require('./Image');
 const db = require('../db');
-const bcrypt = require('bcrypt');
-
-const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const init = () => {
   return db.sync({ force: true })
     .then(() => Promise.all([
-      // User.create({ email: 'shelly@email.com', password: bcrypt.hashSync('123456', saltRounds)}),
-      // User.create({ email: 'jarret@email.com', password: bcrypt.hashSync('abcdef', saltRounds)}),
-      // User.create({ email: 'michelle@email.com', password: bcrypt.hashSync('1a2b3c', saltRounds)}),
-      // User.create({ email: 'jay@email.com', password: bcrypt.hashSync('a1b2c3', saltRounds)}), 
       User.create({ email: 'shelly@email.com', password: '123456'}),
       User.create({ email: 'jarret@email.com', password: 'abcdef'}),
       User.create({ email: 'michelle@email.com', password: '1a2b3c'}),

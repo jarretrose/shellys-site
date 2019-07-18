@@ -6,13 +6,14 @@ import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
+import store, { loadImagesThunk } from '../store';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    // overflow: 'hidden',
     backgroundColor: 'rgba(0,0,0,0)',
   },
   gridList: {
@@ -22,23 +23,15 @@ const styles = theme => ({
 });
 
 class Original extends Component {
-  constructor() {
-    super();
-    this.state = {
-      images: []
-    };
-  };
 
   componentDidMount() {
-    axios.get('/api/images')
-      .then(images => images.data)
-      .then(images => this.setState({ images }))
+    const { init } = this.props;
+    init();
   };
 
   render() {
 
-    const { classes, width } = this.props;
-    const { images } = this.state;
+    const { classes, width, images } = this.props;
 
     // number of columns in the gallery
     const getNumberOfColumns = () => {
@@ -89,4 +82,14 @@ Original.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withWidth()(withStyles(styles)(Original));
+const mapStateToProps = ({ images }) => ({
+  images
+})
+
+const mapDispatchToProps = dispatch => ({
+  init: () => {
+    dispatch(loadImagesThunk());
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(withStyles(styles)(Original)));

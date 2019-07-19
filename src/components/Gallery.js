@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
@@ -22,12 +21,18 @@ const styles = theme => ({
   },
 });
 
-class Original extends Component {
+
+class Gallery extends Component {
 
   componentDidMount() {
-    const { init } = this.props;
-    init();
+    const { load, category } = this.props;
+    load(category);
   };
+
+  componentDidUpdate(prevProps) {
+    const { load, category } = this.props;
+    prevProps.category !== category ? load(category) : null;
+  }
 
   render() {
 
@@ -75,21 +80,23 @@ class Original extends Component {
 
         </div>
     )
-  };
-};
 
-Original.propTypes = {
+  };
+}; 
+
+Gallery.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ images }) => ({
-  images
-})
-
-const mapDispatchToProps = dispatch => ({
-  init: () => {
-    dispatch(loadImagesThunk());
+const mapStateToProps = (state, ownProps) => {
+  return {
+    images: state.images,
+    category: ownProps.match.params.category
   }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  load: (category) => dispatch(loadImagesThunk(category))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(withStyles(styles)(Original)));
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(withStyles(styles)(Gallery)));

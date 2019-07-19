@@ -4,33 +4,32 @@ import axios from 'axios';
 import logger from 'redux-logger';
 
 // *********** ACTION TYPES
-const LOAD_IMAGES = 'LOAD_IMAGES'
+const LOAD_IMAGES = 'LOAD_IMAGES';
 
 // *********** ACTION CREATORS
-const loadImagesAction = (images) => ({ type: LOAD_IMAGES, images })
+const loadImagesAction = (images) => ({ type: LOAD_IMAGES, images });
 
 // *********** THUNKS
-const loadImagesThunk = () => {
+const loadImagesThunk = (category) => {
   return (dispatch) => {
-    axios.get('/api/images')
+    axios.get(`/api/images/${category}`)
       .then(response => response.data)
       .then(images => dispatch(loadImagesAction(images)))
-  }
-}
-
+  };
+};
 
 // *********** REDUCERS
 const imageReducer = (state = [], action) => {
   switch(action.type) {
     case LOAD_IMAGES:
-      return state = action.images;
+      return action.images;
   };
   return state;
 };
 
 // *********** COMBINE REDUCERS
 const reducer = combineReducers({
-  images: imageReducer
+  images: imageReducer,
 });
 
 // *********** STORE

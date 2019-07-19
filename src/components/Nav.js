@@ -70,25 +70,21 @@ export default function Nav(props) {
       <div className={classes.toolbar} />
       <List>
 
-        <ListItem button component={Link} to={'/original'}
+        <ListItem button component={Link} to={'/images/originals'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Original' />
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Originals' />
         </ListItem>
 
-        <ListItem button component={Link} to={'/copywork'}
+        <ListItem button component={Link} to={'/images/copywork'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
         </ListItem>
 
-        <ListItem button component={Link} to={'/post-its'}
+        <ListItem button component={Link} to={'/images/postits'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Post-Its' />
         </ListItem>
-
-        <ListItem button component={Link} to={'/random'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Random' />
-        </ListItem>
+        
 
         <ListItem button component={Link} to={'/words'}
           onClick={mobileOpen ? handleDrawerToggle : null}>

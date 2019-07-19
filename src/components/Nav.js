@@ -86,15 +86,15 @@ export default function Nav(props) {
         </ListItem>
         
 
-        <ListItem button component={Link} to={'/words'}
+        {/* <ListItem button component={Link} to={'/words'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Words' />
-        </ListItem>
+        </ListItem> */}
 
-        <ListItem button component={Link} to={'/coloring'}
+        {/* <ListItem button component={Link} to={'/coloring'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Coloring Books' />
-        </ListItem>
+        </ListItem> */}
 
         <ListItem button component={Link} to={'/about'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
@@ -167,4 +167,4 @@ export default function Nav(props) {
 
     </div>
   );
-}
+};

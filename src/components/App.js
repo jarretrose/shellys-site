@@ -48,8 +48,8 @@ const App = () => {
 
               <Route path='/images/:category' component={Gallery} />
 
-              <Route path='/words' component={Words} />
-              <Route path='/coloring' component={Coloring} />
+              {/* <Route path='/words' component={Words} /> */}
+              {/* <Route path='/coloring' component={Coloring} /> */}
               <Route path='/about' component={About} />
               <Route path='/contact' component={Contact} />
               <Route path='/signin' component={Signin} />

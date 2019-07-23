@@ -14,6 +14,10 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { userInfo } from 'os';
+import { connect } from 'react-redux';
+import store, { loginThunk, getMeThunk } from '../store';
+
 
 function MadeWithLove() {
   return (
@@ -50,31 +54,35 @@ const styles = theme => ({
   },
 });
 
-class Signin extends Component {
+class Admin extends Component {
   constructor() {
     super();
     this.state = {
       email: '', // using email address for login
       password: '',
-      isLoggedIn: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   };
 
   componentDidMount() {
-    
+
   };
+
+  componentDidUpdate() {
+
+  }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   };
 
   handleSubmit(e) {
-    const {email, password} = this.state;
+    const { email, password } = this.state;
+    const { login } = this.props;
     e.preventDefault();
-    
-    // axios post
+
+    login({ email, password });
 
     this.setState({
       email: '',
@@ -84,12 +92,12 @@ class Signin extends Component {
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { isLoggedIn } = this.state;
 
     return (
 
-      isLoggedIn ?
+      user ?
 
         (
           <div>
@@ -109,7 +117,7 @@ class Signin extends Component {
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  Sign in
+                  Admin Sign in
           </Typography>
                 <form onSubmit={this.handleSubmit} className={classes.form} noValidate>
                   <TextField
@@ -138,10 +146,7 @@ class Signin extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                  {/* <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                /> */}
+
                   <Button
                     type="submit"
                     fullWidth
@@ -149,20 +154,9 @@ class Signin extends Component {
                     color="primary"
                     className={classes.submit}
                   >
-                    Sign In
+                    Admin Sign In
             </Button>
-                  <Grid container>
-                    {/* <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                </Link>
-                  </Grid> */}
-                    <Grid item>
-                      <Link href="#" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                      </Link>
-                    </Grid>
-                  </Grid>
+
                 </form>
                 <Box mt={5} >
                   <MadeWithLove />
@@ -175,8 +169,22 @@ class Signin extends Component {
   };
 };
 
-Signin.propTypes = {
+Admin.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Signin);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    login: (email, password) => {
+      dispatch(loginThunk(email, password))
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Admin));

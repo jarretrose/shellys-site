@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan')
+const session = require('express-session');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -13,6 +14,14 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Session middleware
+app.use(session({
+  secret: process.env.JWT_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
 

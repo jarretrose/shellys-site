@@ -12,6 +12,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import store, { loadImagesThunk } from '../store';
 
 const drawerWidth = 160;
 
@@ -55,8 +57,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Nav(props) {
-  const { container } = props;
+const Nav = (props) => {
+  const { container, triggerDispatch } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -71,30 +73,28 @@ export default function Nav(props) {
       <List>
 
         <ListItem button component={Link} to={'/images/originals'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
+          onClick={() => {
+            mobileOpen ? handleDrawerToggle : null;
+            triggerDispatch('originals');
+          }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Originals' />
         </ListItem>
 
         <ListItem button component={Link} to={'/images/copywork'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
+          onClick={() => {
+            mobileOpen ? handleDrawerToggle : null;
+            triggerDispatch('copywork');
+          }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
         </ListItem>
 
         <ListItem button component={Link} to={'/images/postits'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Post-Its' />
+          onClick={() => {
+            mobileOpen ? handleDrawerToggle : null;
+            triggerDispatch('postits');
+          }}>
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Post Its' />
         </ListItem>
-        
-
-        {/* <ListItem button component={Link} to={'/words'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Words' />
-        </ListItem> */}
-
-        {/* <ListItem button component={Link} to={'/coloring'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Coloring Books' />
-        </ListItem> */}
 
         <ListItem button component={Link} to={'/about'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
@@ -106,9 +106,9 @@ export default function Nav(props) {
           <ListItemText classes={{ primary: classes.navStyles }} primary='Contact' />
         </ListItem>
 
-        <ListItem button component={Link} to={'/signin'}
+        <ListItem button component={Link} to={'/admin'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Sign in' />
+          <ListItemText classes={{ primary: classes.navStyles }} primary='Admin' />
         </ListItem>
 
       </List>
@@ -168,3 +168,11 @@ export default function Nav(props) {
     </div>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    triggerDispatch: (cat) => dispatch(loadImagesThunk(cat))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Nav);

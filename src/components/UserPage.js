@@ -16,9 +16,7 @@ class UserPage extends Component {
   render() {
     const { user, handleClick } = this.props;
 
-    if (!user.id) {
-      return <Redirect to='/login' />
-    }
+    if (!user.id) return <Redirect to='/login' />
 
     return (
       <div>

@@ -67,11 +67,12 @@ class Login extends Component {
   };
 
   handleSubmit(e) {
+    e.preventDefault();
     const { email, password } = this.state;
     const { login } = this.props;
-    e.preventDefault();
 
     login({ email, password });
+
     this.setState({
       email: '',
       password: '',
@@ -81,6 +82,9 @@ class Login extends Component {
   render() {
 
     const { classes, user } = this.props;
+
+    // DEFENSIVE CODING, MAKES SURE LOGGED IN USER IS REDIRECTED TO USER PAGE UPON REFRESH
+    if (user.id) return <Redirect to='/admin' />
 
     return (
       <div className={classes.root}>

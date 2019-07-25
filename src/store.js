@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import logger from 'redux-logger';
 
-
+// IMAGE REDUX
 // *********** IMAGE ACTION TYPES
 const LOAD_IMAGES = 'LOAD_IMAGES';
 
@@ -30,31 +30,42 @@ const imageReducer = (state = [], action) => {
   };
 };
 
+
+// AUTH REDUX
 // *********** AUTH ACTION TYPES
 const GET_USER = 'GET_USER';
-const GOT_ME = 'GOT_ME';
 
 // *********** AUTH ACTION CREATORS
-const getUser = (user) => ({ type: GET_USER, user})
+const gotUser = (user) => ({ type: GET_USER, user})
 
 // *********** AUTH THUNKS
 const loginThunk = (userInfo) => {
   return(dispatch) => {
-    axios.put(`/api/auth/login`, userInfo)
+    return axios.put('/api/auth/login', userInfo)
       .then(response => response.data)
-      .then(user => dispatch(getUser(user)))
+      .then(user => dispatch(gotUser(user)))
       .catch(console.error.bind(console))
   };
 };
 
-const getMeThunk = () => {
+const getMe = () => {
   return(dispatch) => {
-    axios.get('api/auth/me')
-      .then(response => response.data)
-      .then(user => dispatch(getUser(user)))
+    return axios.get('api/auth/me')
+      .then(res => res.data)
+      .then(user => dispatch(gotUser(user)))
       .catch(console.error.bind(console))
-  };
-};
+  }
+}
+
+const deletedUser = {};
+
+const logout = () => {
+  return(dispatch) => {
+    return axios.delete('api/auth/logout')
+      .then(() => dispatch(gotUser(deletedUser)))
+      .catch(console.error.bind(console))
+  }
+}
 
 // *********** AUTH REDUCERS
 
@@ -67,14 +78,15 @@ const authReducer = (state = {}, action) => {
   };
 };
 
+// COMBINE REDUCERS & STORE
 // *********** COMBINE REDUCERS
 const reducer = combineReducers({
   images: imageReducer,
-  auth: authReducer,
+  user: authReducer,
 });
 
 // *********** STORE
-const store = createStore(reducer, applyMiddleware(logger, thunk));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 
 // *********** SELECTORS / HELPERS
@@ -86,7 +98,8 @@ export default store;
 export { 
   loadImagesThunk,
   loginThunk,
-  getMeThunk
+  getMe,
+  logout
 };
 
 

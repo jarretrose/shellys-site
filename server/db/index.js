@@ -10,4 +10,3 @@ db.authenticate()
   .catch(err => console.log('Error connecting to the database.', err));
 
 module.exports = db;
-

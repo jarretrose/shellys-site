@@ -1,15 +1,16 @@
 // main React file
 import React, { Component } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Nav from './Nav.js';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Gallery from './Gallery';
 import About from './About';
 import Contact from './Contact';
-import Admin from './Admin';
-import store, { loadImagesThunk } from '../store';
 import { connect } from 'react-redux';
+import UserPage from './UserPage';
+import Login from './Login';
+import store, { getMe } from '../store';
 
 const drawerWidth = 160;
 
@@ -38,11 +39,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('App did mount')
-  }
-
-  componentDidUpdate() {
-    console.log('App did update')
+    const { checkUser } = this.props;
+    checkUser();
   }
 
   render() {
@@ -60,7 +58,8 @@ class App extends Component {
               <Route path='/images/:category' component={Gallery} />
               <Route path='/about' component={About} />
               <Route path='/contact' component={Contact} />
-              <Route path='/admin' component={Admin} />
+              <Route path='/admin' component={UserPage} />
+              <Route path='/login' component={Login} />
 
             </Switch>
           </main>
@@ -70,4 +69,12 @@ class App extends Component {
   };
 };
 
-export default withStyles(styles)(App);
+const mapStateToProps = ({ user }) => ({ user })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    checkUser: () => (dispatch(getMe()))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App)));

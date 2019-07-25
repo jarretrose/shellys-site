@@ -5,22 +5,6 @@ const router = express.Router();
 const db = require('../db');
 const User = require('../models/User');
 
-const userNotFound = next => {
-  const err = new Error('Not found.');
-  err.status = 404;
-  next(err)
-};
-
-router.get('/me', (req, res, next) => {
-  if (!req.session.userId) {
-    userNotFound(next)
-  } else {
-    User.findById(req.session.userId)
-      .then(user => user ? res.json(user) : userNotFound(next))
-      .catch(next)
-  }
-})
-
 router.put('/login', (req, res, next) => {
   User.findOne({
     where: {
@@ -39,6 +23,27 @@ router.put('/login', (req, res, next) => {
     }
   })
   .catch(next)
+})
+
+const userNotFound = next => {
+  const err = new Error('Not found.');
+  err.status = 404;
+  next(err)
+};
+
+router.get('/me', (req, res, next) => {
+  if (!req.session.userId) {
+    userNotFound(next)
+  } else {
+    User.findByPk(req.session.userId)
+      .then(user => user ? res.json(user) : userNotFound(next))
+      .catch(next)
+  }
+})
+
+router.delete('/logout', (req, res, next) => {
+  req.session.destroy()
+  res.status(204).end()
 })
 
 module.exports = router;

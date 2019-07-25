@@ -67,6 +67,15 @@ const Nav = (props) => {
     setMobileOpen(!mobileOpen);
   }
 
+  function isMobileOpen () {
+    mobileOpen ? handleDrawerToggle : null
+  }
+
+  function clickEvent(event) {
+    if (mobileOpen) handleDrawerToggle();
+    triggerDispatch('originals')
+  }
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -74,7 +83,7 @@ const Nav = (props) => {
 
         <ListItem button component={Link} to={'/images/originals'}
           onClick={() => {
-            mobileOpen ? handleDrawerToggle : null;
+            mobileOpen ? handleDrawerToggle() : null;            
             triggerDispatch('originals');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Originals' />
@@ -82,7 +91,7 @@ const Nav = (props) => {
 
         <ListItem button component={Link} to={'/images/copywork'}
           onClick={() => {
-            mobileOpen ? handleDrawerToggle : null;
+            mobileOpen ? handleDrawerToggle() : null;            
             triggerDispatch('copywork');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
@@ -90,7 +99,7 @@ const Nav = (props) => {
 
         <ListItem button component={Link} to={'/images/postits'}
           onClick={() => {
-            mobileOpen ? handleDrawerToggle : null;
+            mobileOpen ? handleDrawerToggle() : null;
             triggerDispatch('postits');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Post Its' />

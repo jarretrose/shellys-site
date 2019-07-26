@@ -34,17 +34,19 @@ const styles = theme => ({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
+  constructor() {
+    super()
+  };
 
   componentDidMount() {
     const { checkUser } = this.props;
-    checkUser();
+    checkUser()
   }
 
+
   render() {
-    const { classes } = this.props;
+    let whichRoute;
+    const { classes, user, checkUser } = this.props;
 
     return (
       <div className={classes.background}>
@@ -58,9 +60,8 @@ class App extends Component {
               <Route path='/images/:category' component={Gallery} />
               <Route path='/about' component={About} />
               <Route path='/contact' component={Contact} />
-              <Route path='/admin' component={UserPage} />
               <Route path='/login' component={Login} />
-
+              <Route path='/admin' component={UserPage} />
             </Switch>
           </main>
         </div>

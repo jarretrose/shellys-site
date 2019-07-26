@@ -3,18 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getMe, logout } from '../store';
 
-class UserPage extends Component {
-  constructor() {
-    super()
-  }
+const UserPage = (props) => {
 
-  componentDidMount() {
-    const { checkUser } = this.props;
-    checkUser()
-  }
-
-  render() {
-    const { user, handleClick } = this.props;
+    const { user, handleClick } = props;
 
     if (!user.id) return <Redirect to='/login' />
 
@@ -25,14 +16,12 @@ class UserPage extends Component {
       </div>
       // eventually will create admin panel and user panel components 
     )
-  }
-};
+  };
 
 const mapStateToProps = ({ user }) => ({ user })
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkUser: () => (dispatch(getMe())),
     handleClick: () => (dispatch(logout()))
   }
 }

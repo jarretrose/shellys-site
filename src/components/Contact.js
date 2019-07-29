@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <div>
       <CssBaseline />
-      Contact ME and stuff
+      Contact page coming soon.
     </div>
   );
 };

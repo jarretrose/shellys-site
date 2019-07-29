@@ -7,7 +7,7 @@ const About = props => {
   return (
     <div>
       <CssBaseline />
-        About Me Page and Stuff.
+        About page coming soon.
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getMe, logout } from '../store';
+import PropTypes from 'prop-types';
 
 const UserPage = (props) => {
 
@@ -17,6 +18,10 @@ const UserPage = (props) => {
       // eventually will create admin panel and user panel components 
     )
   };
+
+UserPage.propTypes = {
+  user: PropTypes.object.isRequired
+}
 
 const mapStateToProps = ({ user }) => ({ user })
 

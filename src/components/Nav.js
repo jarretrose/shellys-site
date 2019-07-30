@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import store, { loadImagesByCategoryThunk } from '../store';
 
 const drawerWidth = 160;
 
@@ -58,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Nav = (props) => {
-  const { container, triggerDispatch } = props;
+  const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -73,26 +72,17 @@ const Nav = (props) => {
       <List>
 
         <ListItem button component={Link} to={'/images/originals'}
-          onClick={() => {
-            mobileOpen ? handleDrawerToggle() : null;            
-            // triggerDispatch('originals');
-          }}>
+          onClick={() => {mobileOpen ? handleDrawerToggle() : null}}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Originals' />
         </ListItem>
 
         <ListItem button component={Link} to={'/images/copywork'}
-          onClick={() => {
-            mobileOpen ? handleDrawerToggle() : null;            
-            // triggerDispatch('copywork');
-          }}>
+          onClick={() => {mobileOpen ? handleDrawerToggle() : null}}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
         </ListItem>
 
         <ListItem button component={Link} to={'/images/postits'}
-          onClick={() => {
-            mobileOpen ? handleDrawerToggle() : null;
-            // triggerDispatch('postits');
-          }}>
+          onClick={() => {mobileOpen ? handleDrawerToggle() : null}}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Post Its' />
         </ListItem>
 
@@ -169,11 +159,4 @@ const Nav = (props) => {
   );
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     triggerDispatch: (cat) => dispatch(loadImagesThunk(cat))
-//   }
-// }
-
-// export default connect(null, mapDispatchToProps)(Nav);
 export default connect(null)(Nav);

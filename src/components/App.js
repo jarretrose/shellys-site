@@ -10,7 +10,7 @@ import Contact from './Contact';
 import { connect } from 'react-redux';
 import UserPage from './UserPage';
 import Login from './Login';
-import store, { getMe } from '../store';
+import store, { getMe, loadAllImagesThunk } from '../store';
 
 const drawerWidth = 160;
 
@@ -39,14 +39,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const { checkUser } = this.props;
-    checkUser()
+    const { init } = this.props;
+    init()
   }
 
-
+  componentDidUpdate() {
+    console.log('APP UPDATED!!!')
+  }
+  
   render() {
-    let whichRoute;
-    const { classes, user, checkUser } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.background}>
@@ -70,11 +72,14 @@ class App extends Component {
   };
 };
 
-const mapStateToProps = ({ user }) => ({ user })
+const mapStateToProps = ({ user, images }) => ({ user, images })
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkUser: () => (dispatch(getMe()))
+    init() {
+      dispatch(getMe());
+      dispatch(loadAllImagesThunk());
+    }
   }
 }
 

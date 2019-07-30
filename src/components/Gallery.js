@@ -19,9 +19,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Gallery = (props) => {
+  const { images, width } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const { images, width } = props;
+  const imageCategory = props.match.params.category;
 
   // number of columns in the gallery
   const getNumberOfColumns = () => {
@@ -49,17 +50,18 @@ const Gallery = (props) => {
     return 1;
   };
 
-  return (
+  // if the images haven't loaded, do nothing
+  if (!images.length) return <span>No images to load.</span>
 
-    // if the images haven't loaded, do nothing
-    !images.length ? <span>No images to load.</span> :
+  return (
 
       <div className={classes.root}>
         <GridList cellHeight={180} spacing={8} className={classes.gridList} cols={getNumberOfColumns()}>
-          {images.map((img, idx) => (
-            <GridListTile style={{ background: 'rgba(0,0,0,.5' }} key={img.name} cols={getImgColSpan(idx)} rows={2}>
-              <img src={img.imageURL} alt={img.name} />
-            </GridListTile>
+          {images.filter(image => image.category === imageCategory)
+            .map((img, idx) => (
+              <GridListTile style={{ background: 'rgba(0,0,0,.5' }} key={img.name} cols={getImgColSpan(idx)} rows={2}>
+                <img src={img.imageURL} alt={img.name} />
+              </GridListTile>
           ))}
         </GridList>
       </div>

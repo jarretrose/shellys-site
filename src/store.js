@@ -5,17 +5,28 @@ import logger from 'redux-logger';
 
 // IMAGE REDUX
 // *********** IMAGE ACTION TYPES
-const LOAD_IMAGES = 'LOAD_IMAGES';
+const LOAD_ALL_IMAGES = 'LOAD_ALL_IMAGES';
+const LOAD_IMAGES_BY_CATEGORY = 'LOAD_IMAGES_BY_CATEGORY';
 
 // *********** IMAGE ACTION CREATORS
-const loadImagesAction = (images) => ({ type: LOAD_IMAGES, images });
+const loadAllImagesAction = (images) => ({ type: LOAD_ALL_IMAGES, images });
+const loadImagesByCategoryAction = (images) => ({ type: LOAD_IMAGES_BY_CATEGORY, images });
 
 // *********** IMAGE THUNKS
-const loadImagesThunk = (category) => {
+const loadAllImagesThunk = () => {
+  return (dispatch) => {
+    axios.get('/api/images')
+      .then(response => response.data)
+      .then(images => dispatch(loadAllImagesAction(images)))
+      .catch(console.error.bind(console))
+  }
+}
+
+const loadImagesByCategoryThunk = (category) => {
   return (dispatch) => {
     axios.get(`/api/images/${category}`)
       .then(response => response.data)
-      .then(images => dispatch(loadImagesAction(images)))
+      .then(images => dispatch(loadImagesByCategoryAction(images)))
       .catch(console.error.bind(console))
   };
 };
@@ -23,7 +34,9 @@ const loadImagesThunk = (category) => {
 // *********** IMAGE REDUCERS
 const imageReducer = (state = [], action) => {
   switch(action.type) {
-    case LOAD_IMAGES:
+    case LOAD_ALL_IMAGES:
+      return action.images;
+    case LOAD_IMAGES_BY_CATEGORY:
       return action.images;
     default: 
       return state;
@@ -95,8 +108,9 @@ const store = createStore(reducer, applyMiddleware(thunk, logger));
 // *********** EXPORTS
 export default store;
 
-export { 
-  loadImagesThunk,
+export {
+  loadAllImagesThunk,
+  loadImagesByCategoryThunk,
   loginThunk,
   getMe,
   logout

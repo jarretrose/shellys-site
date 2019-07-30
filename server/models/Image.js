@@ -11,9 +11,6 @@ const Image = db.define('image', {
   imageURL: {
     type: Sequelize.TEXT, allowNull: false,
   },
-  cols: {
-    type: Sequelize.INTEGER, allowNull: true,
-  }
 });
 
 module.exports = Image;

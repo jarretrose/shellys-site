@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import store, { loadImagesThunk } from '../store';
+import store, { loadImagesByCategoryThunk } from '../store';
 
 const drawerWidth = 160;
 
@@ -67,15 +67,6 @@ const Nav = (props) => {
     setMobileOpen(!mobileOpen);
   }
 
-  function isMobileOpen () {
-    mobileOpen ? handleDrawerToggle : null
-  }
-
-  function clickEvent(event) {
-    if (mobileOpen) handleDrawerToggle();
-    triggerDispatch('originals')
-  }
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -84,7 +75,7 @@ const Nav = (props) => {
         <ListItem button component={Link} to={'/images/originals'}
           onClick={() => {
             mobileOpen ? handleDrawerToggle() : null;            
-            triggerDispatch('originals');
+            // triggerDispatch('originals');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Originals' />
         </ListItem>
@@ -92,7 +83,7 @@ const Nav = (props) => {
         <ListItem button component={Link} to={'/images/copywork'}
           onClick={() => {
             mobileOpen ? handleDrawerToggle() : null;            
-            triggerDispatch('copywork');
+            // triggerDispatch('copywork');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Copywork' />
         </ListItem>
@@ -100,7 +91,7 @@ const Nav = (props) => {
         <ListItem button component={Link} to={'/images/postits'}
           onClick={() => {
             mobileOpen ? handleDrawerToggle() : null;
-            triggerDispatch('postits');
+            // triggerDispatch('postits');
           }}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='Post Its' />
         </ListItem>
@@ -178,10 +169,11 @@ const Nav = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    triggerDispatch: (cat) => dispatch(loadImagesThunk(cat))
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     triggerDispatch: (cat) => dispatch(loadImagesThunk(cat))
+//   }
+// }
 
-export default connect(null, mapDispatchToProps)(Nav);
+// export default connect(null, mapDispatchToProps)(Nav);
+export default connect(null)(Nav);

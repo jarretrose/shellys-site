@@ -8,16 +8,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const About = props => {
+const AdminImageList = props => {
   const classes = useStyles();
   const theme = useTheme();
 
   return (
     <Fragment>
       <CssBaseline />
-      About page coming soon.
+      Admin Add Image.
     </Fragment>
   );
 };
 
-export default About;
+export default AdminImageList;

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logout } from '../store';
@@ -7,10 +7,81 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import AdminImageList from './AdminImageList';
+import AdminAddImage from './AdminAddImage';
 
-const useStyles = makeStyles(theme => ({
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   button: {
+//     margin: theme.spacing(1),
+//   },
+//   paper: {
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//   },
+//   welcome: {
+//     marginBottom: theme.spacing(2),
+//   },
+//   actionArea: {
+
+//   }
+// }));
+
+
+// const UserPage = (props) => {
+//   const { user, handleClickLogout } = props;
+//   const classes = useStyles();
+//   const theme = useTheme();
+//   let allImagesIsVisible = false;
+//   let addImageIsVisible = false;
+
+//   const handleClickListAllImages = () => {
+//     console.log('handle click list all images')
+//     allImagesIsVisible ? allImagesIsVisible = false : allImagesIsVisible = true;
+//   }
+
+//   const handleClickAddImage = () => {
+//     console.log('handle click add image')
+//   }
+
+
+//   if (!user.id) return <Redirect to='/login' />
+
+//   return (
+//     <div className={classes.root}>
+//       <div className={classes.welcome}>
+//         <Typography variant="h2" gutterBottom>Welcome Back, {user.firstName}!</Typography>
+
+//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
+//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickListAllImages}>List All Images</Button>
+//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickAddImage}>Add Image</Button>
+
+//       </div>
+//       <div className={classes.actionArea}>
+//         { allImagesIsVisible && <AdminImageList /> }
+//         { addImageIsVisible ? <AdminAddImage /> : null }
+//       </div>
+//     </div>
+//   )
+// };
+
+// const mapStateToProps = ({ user, images }) => ({ user, images })
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     handleClickLogout: () => (dispatch(logout()))
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -23,50 +94,72 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
   },
   welcome: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
-  actions: {
+  actionArea: {
 
   }
-}));
+});
 
 
-const UserPage = (props) => {
-  const { user, handleClick } = props;
-  const classes = useStyles();
-  const theme = useTheme();
+class UserPage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      allImagesIsVisible: false,
+      addImageIsVisible: false,
+    }
+    this.handleClickAddImage = this.handleClickAddImage.bind(this);
+    this.handleClickListAllImages = this.handleClickListAllImages.bind(this);
+  }
 
-  if (!user.id) return <Redirect to='/login' />
+  handleClickListAllImages() {
+    const { allImagesIsVisible, addImageIsVisible } = this.state;
+    this.setState({ 
+      allImagesIsVisible: !allImagesIsVisible,
+      addImageIsVisible: addImageIsVisible ? false : null,
+    })
+  }
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.welcome}>
-        <Typography variant="h2" gutterBottom>Welcome Back, {user.firstName}!</Typography>
-        <Button variant="contained" color="secondary" onClick={handleClick}>Logout</Button>
+  handleClickAddImage() {
+    const { addImageIsVisible, allImagesIsVisible } = this.state;
+    this.setState({ 
+      addImageIsVisible: !addImageIsVisible,
+      allImagesIsVisible: allImagesIsVisible ? false : null,
+    })
+  }
+
+  render() {
+    const { classes, user, handleClickLogout } = this.props;
+    const { allImagesIsVisible, addImageIsVisible } = this.state;
+
+    if (!user.id) return <Redirect to='/login' />
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.welcome}>
+          <Typography variant="h2" gutterBottom>Welcome Back, {user.firstName}!</Typography>
+
+          <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
+          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickListAllImages}>List All Images</Button>
+          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickAddImage}>Add Image</Button>
+
+        </div>
+        <div className={classes.actionArea}>
+          { allImagesIsVisible && <AdminImageList /> }
+          { addImageIsVisible && <AdminAddImage /> }
+        </div>
       </div>
-      <div className={classes.actions}>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-      </Grid>
-      </div>
-    </div>
-  )
+    )
+  }
 };
 
 const mapStateToProps = ({ user, images }) => ({ user, images })
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleClick: () => (dispatch(logout()))
+    handleClickLogout: () => (dispatch(logout()))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(UserPage));

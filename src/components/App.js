@@ -57,7 +57,6 @@ class App extends Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Switch>
-
               <Route path='/images/:category' component={Gallery} />
               <Route path='/about' component={About} />
               <Route path='/contact' component={Contact} />

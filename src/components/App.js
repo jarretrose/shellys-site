@@ -44,7 +44,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log('APP UPDATED!!!')
   }
   
   render() {

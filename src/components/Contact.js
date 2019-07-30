@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const Contact = () => {
 
   return (
-    <div>
+    <Fragment>
       <CssBaseline />
       Contact page coming soon.
-    </div>
+    </Fragment>
   );
 };
 

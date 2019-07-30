@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const About = props => {
 
   return (
-    <div>
+    <Fragment>
       <CssBaseline />
-        About page coming soon.
-    </div>
+      About page coming soon.
+    </Fragment>
   );
 };
 

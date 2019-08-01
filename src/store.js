@@ -37,17 +37,14 @@ const loadImagesByCategoryThunk = (category) => {
   };
 };
 
-// const deleteImageThunk = (imageID) => {
-//   return (dispatch) => {
-//     const id = parseInt(imageID)
-//     axios.delete(`/api/images/${id}`)
-//       .then(response => response.data)
-//       .then(image => dispatch(deleteImageAction(image)))
-//       .catch(console.error.bind(console))
-//   }
-// }
 const deleteImageThunk = (imageID) => {
-  console.log(imageID)
+  return (dispatch) => {
+    const id = parseInt(imageID)
+    axios.delete(`/api/images/${id}`)
+      .then(response => response.data)
+      .then(() => dispatch(deleteImageAction(imageID)))
+      .catch(console.error.bind(console))
+  }
 }
 
 // *********** IMAGE REDUCERS
@@ -58,7 +55,8 @@ const imageReducer = (state = [], action) => {
     case LOAD_IMAGES_BY_CATEGORY:
       return action.images;
     case DELETE_IMAGE:
-      return state.filter(img => img.id !== action.image.id)
+      console.log(action)
+      return state.filter(img => img.id !== action.imageID)
     default: 
       return state;
   };

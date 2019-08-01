@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import deleteImageThunk from '../store'
+import { deleteImageThunk } from '../store'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,12 +41,9 @@ const useStyles = makeStyles(theme => ({
 const AdminImageList = props => {
   const classes = useStyles();
   const theme = useTheme();
-  const { images } = props;
+  const { images, deleteImage } = props;
 
-  function handleDelete(imageID) {
-    const { deleteImage } = props;
-    deleteImage(imageID)
-  }
+  const handleDelete = (id) => deleteImage(id)
 
   return (
     <div className={classes.root}>
@@ -54,7 +51,7 @@ const AdminImageList = props => {
       <Grid container spacing={2}>
 
         <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.noImages}>
             All Images
           </Typography>
 
@@ -62,28 +59,34 @@ const AdminImageList = props => {
 
             <List>
               {
-                images.map(img =>
-                  <div key={img.name + Date.now()}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar alt={img.name} src={img.imageURL} className={classes.avatar} />
-                      </ListItemAvatar>
-                      <ListItemText primary={img.name} />
-                      <ListItemSecondaryAction>
+                !images.length ? (
+                  <Typography variant="h6" align="center">
+                    No images to display.
+                  </Typography>
+                ) :
 
-                        <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(img.id)} >
-                          <DeleteIcon />
-                        </IconButton>
+                  images.map(img =>
+                    <div key={img.name + Date.now()}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar alt={img.name} src={img.imageURL} className={classes.avatar} />
+                        </ListItemAvatar>
+                        <ListItemText primary={img.name} />
+                        <ListItemSecondaryAction>
 
-                        <IconButton edge="end" aria-label="edit">
-                          <EditIcon />
-                        </IconButton>
+                          <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(img.id)} >
+                            <DeleteIcon />
+                          </IconButton>
 
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </div>,
-                )}
+                          <IconButton edge="end" aria-label="edit">
+                            <EditIcon />
+                          </IconButton>
+
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <Divider variant="inset" component="li" />
+                    </div>,
+                  )}
             </List>
           </Box>
         </Grid>
@@ -96,7 +99,7 @@ const mapStateToProps = ({ images }) => ({ images })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteImage: (id) => (dispatch(deleteImageThunk(id)))
+    deleteImage: (imageID) => dispatch(deleteImageThunk(imageID))
   }
 }
 

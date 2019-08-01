@@ -47,18 +47,20 @@ const deleteImageThunk = (imageID) => {
   }
 }
 
+const sorting = (returnedState) => returnedState.sort((a,b) => a - b)
+
 // *********** IMAGE REDUCERS
 const imageReducer = (state = [], action) => {
   switch(action.type) {
     case LOAD_ALL_IMAGES:
-      return action.images;
+      return action.images
     case LOAD_IMAGES_BY_CATEGORY:
-      return action.images;
+      return action.images
     case DELETE_IMAGE:
       return state.filter(img => img.id !== action.imageID)
     default: 
       return state;
-  };
+  }; 
 };
 
 

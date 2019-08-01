@@ -55,7 +55,6 @@ const imageReducer = (state = [], action) => {
     case LOAD_IMAGES_BY_CATEGORY:
       return action.images;
     case DELETE_IMAGE:
-      console.log(action)
       return state.filter(img => img.id !== action.imageID)
     default: 
       return state;

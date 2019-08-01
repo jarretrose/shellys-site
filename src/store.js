@@ -7,10 +7,16 @@ import logger from 'redux-logger';
 // *********** IMAGE ACTION TYPES
 const LOAD_ALL_IMAGES = 'LOAD_ALL_IMAGES';
 const LOAD_IMAGES_BY_CATEGORY = 'LOAD_IMAGES_BY_CATEGORY';
+const DELETE_IMAGE = 'DELETE_IMAGE';
+const EDIT_IMAGE = 'EDIT_IMAGE';
+const ADD_IMAGE = 'ADD_IMAGE';
 
 // *********** IMAGE ACTION CREATORS
 const loadAllImagesAction = (images) => ({ type: LOAD_ALL_IMAGES, images });
 const loadImagesByCategoryAction = (images) => ({ type: LOAD_IMAGES_BY_CATEGORY, images });
+const deleteImageAction = (imageID) => ({ type: DELETE_IMAGE, imageID });
+const editImageAction = (update) => ({ type: EDIT_IMAGE, update });
+const addImageAction = (image) => ({ type: ADD_IMAGE, image });
 
 // *********** IMAGE THUNKS
 const loadAllImagesThunk = () => {
@@ -31,6 +37,19 @@ const loadImagesByCategoryThunk = (category) => {
   };
 };
 
+// const deleteImageThunk = (imageID) => {
+//   return (dispatch) => {
+//     const id = parseInt(imageID)
+//     axios.delete(`/api/images/${id}`)
+//       .then(response => response.data)
+//       .then(image => dispatch(deleteImageAction(image)))
+//       .catch(console.error.bind(console))
+//   }
+// }
+const deleteImageThunk = (imageID) => {
+  console.log(imageID)
+}
+
 // *********** IMAGE REDUCERS
 const imageReducer = (state = [], action) => {
   switch(action.type) {
@@ -38,6 +57,8 @@ const imageReducer = (state = [], action) => {
       return action.images;
     case LOAD_IMAGES_BY_CATEGORY:
       return action.images;
+    case DELETE_IMAGE:
+      return state.filter(img => img.id !== action.image.id)
     default: 
       return state;
   };
@@ -99,8 +120,15 @@ const reducer = combineReducers({
 });
 
 // *********** STORE
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+let store;
 
+if (process.env.NODE_ENV !== 'production') {
+  store = createStore(reducer, applyMiddleware(thunk, logger));
+}
+
+if (process.env.NODE_ENV === 'production') {
+  store = createStore(reducer, applyMiddleware(thunk));
+}
 
 // *********** SELECTORS / HELPERS
 
@@ -111,6 +139,7 @@ export default store;
 export {
   loadAllImagesThunk,
   loadImagesByCategoryThunk,
+  deleteImageThunk,
   loginThunk,
   getMe,
   logout

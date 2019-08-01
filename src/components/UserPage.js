@@ -12,74 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AdminImageList from './AdminImageList';
 import AdminAddImage from './AdminAddImage';
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-//   paper: {
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//   },
-//   welcome: {
-//     marginBottom: theme.spacing(2),
-//   },
-//   actionArea: {
-
-//   }
-// }));
-
-
-// const UserPage = (props) => {
-//   const { user, handleClickLogout } = props;
-//   const classes = useStyles();
-//   const theme = useTheme();
-//   let allImagesIsVisible = false;
-//   let addImageIsVisible = false;
-
-//   const handleClickListAllImages = () => {
-//     console.log('handle click list all images')
-//     allImagesIsVisible ? allImagesIsVisible = false : allImagesIsVisible = true;
-//   }
-
-//   const handleClickAddImage = () => {
-//     console.log('handle click add image')
-//   }
-
-
-//   if (!user.id) return <Redirect to='/login' />
-
-//   return (
-//     <div className={classes.root}>
-//       <div className={classes.welcome}>
-//         <Typography variant="h2" gutterBottom>Welcome Back, {user.firstName}!</Typography>
-
-//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
-//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickListAllImages}>List All Images</Button>
-//         <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickAddImage}>Add Image</Button>
-
-//       </div>
-//       <div className={classes.actionArea}>
-//         { allImagesIsVisible && <AdminImageList /> }
-//         { addImageIsVisible ? <AdminAddImage /> : null }
-//       </div>
-//     </div>
-//   )
-// };
-
-// const mapStateToProps = ({ user, images }) => ({ user, images })
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handleClickLogout: () => (dispatch(logout()))
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
   root: {
@@ -94,11 +27,11 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
   },
   welcome: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   actionArea: {
 
-  }
+  },
 });
 
 
@@ -137,18 +70,24 @@ class UserPage extends Component {
 
     return (
       <div className={classes.root}>
-        <div className={classes.welcome}>
-          <Typography variant="h2" gutterBottom>Welcome Back, {user.firstName}!</Typography>
 
-          <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickListAllImages}>List All Images</Button>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickAddImage}>Add Image</Button>
+        <div className={classes.welcome}>
+
+          <Typography variant="h5" gutterBottom>Welcome Back, {user.firstName}!</Typography>
+
+          <Box display="flex" flexDirection="row">
+            <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
+            <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickListAllImages}>All Images</Button>
+            <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickAddImage}>Add Image</Button>
+          </Box>
 
         </div>
+
         <div className={classes.actionArea}>
           { allImagesIsVisible && <AdminImageList /> }
           { addImageIsVisible && <AdminAddImage /> }
         </div>
+
       </div>
     )
   }

@@ -14,7 +14,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import { deleteImageThunk } from '../store'
+import store, { showModalAction, deleteImageThunk } from '../store'
+import EditDialog from './EditDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,13 +42,13 @@ const useStyles = makeStyles(theme => ({
 const AdminImageList = props => {
   const classes = useStyles();
   const theme = useTheme();
-  const { images, deleteImage } = props;
+  const { images, deleteImage, openModal } = props;
 
-  const handleDelete = (id) => deleteImage(id)
+  const handleDelete = (id) => deleteImage(id);
+  const handleEdit = (img) => openModal(img)
 
   return (
     <div className={classes.root}>
-
       <Grid container spacing={2}>
 
         <Grid item xs={12} md={6}>
@@ -78,7 +79,7 @@ const AdminImageList = props => {
                             <DeleteIcon />
                           </IconButton>
 
-                          <IconButton edge="end" aria-label="edit">
+                          <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(img)}>
                             <EditIcon />
                           </IconButton>
 
@@ -91,6 +92,8 @@ const AdminImageList = props => {
           </Box>
         </Grid>
       </Grid>
+
+      <EditDialog />
     </div>
   );
 };
@@ -99,7 +102,8 @@ const mapStateToProps = ({ images }) => ({ images })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteImage: (imageID) => dispatch(deleteImageThunk(imageID))
+    deleteImage: (imageID) => dispatch(deleteImageThunk(imageID)),
+    openModal: (img) => dispatch(showModalAction(img))
   }
 }
 

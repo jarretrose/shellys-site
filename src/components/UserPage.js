@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { logout } from '../store';
+import { logoutThunk } from '../store';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -97,7 +97,7 @@ const mapStateToProps = ({ user, images }) => ({ user, images })
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleClickLogout: () => (dispatch(logout()))
+    handleClickLogout: () => (dispatch(logoutThunk()))
   }
 }
 

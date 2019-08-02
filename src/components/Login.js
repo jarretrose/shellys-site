@@ -51,6 +51,7 @@ const styles = theme => ({
 });
 
 // using a class in order to use local state for form
+// will refactor to use hooks later
 class Login extends Component {
   constructor() {
     super();

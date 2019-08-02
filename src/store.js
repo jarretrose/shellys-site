@@ -47,22 +47,39 @@ const deleteImageThunk = (imageID) => {
   }
 }
 
-const sorting = (returnedState) => returnedState.sort((a,b) => a - b)
+const editImageThunk = (id, updatedInfo) => {
+  return (dispatch) => {
+    axios.put(`/api/images/${id}`, updatedInfo)
+      .then(response => response.data)
+      .then(newInfo => dispatch(editImageAction(newInfo)))
+      .catch(console.error.bind(console))
+  }
+}
 
-// *********** IMAGE REDUCERS
+// mini helper to sort images consistently
+const sorting = (returnedState) => returnedState.sort((a,b) => a.createdAt - b.createdAt)
+
+// *********** IMAGE REDUCER
 const imageReducer = (state = [], action) => {
   switch(action.type) {
     case LOAD_ALL_IMAGES:
-      return action.images
+      return sorting(action.images)
     case LOAD_IMAGES_BY_CATEGORY:
-      return action.images
+      return sorting(action.images)
     case DELETE_IMAGE:
-      return state.filter(img => img.id !== action.imageID)
+      return sorting(state.filter(img => img.id !== action.imageID))
+    case EDIT_IMAGE:
+      return state.map(img => {
+        if (img.id === action.newInfo.id) {
+          return action.newInfo
+        } else {
+          return img
+        }
+      })
     default: 
       return state;
   }; 
 };
-
 
 // AUTH REDUX
 // *********** AUTH ACTION TYPES
@@ -81,7 +98,7 @@ const loginThunk = (userInfo) => {
   };
 };
 
-const getMe = () => {
+const getMeThunk = () => {
   return(dispatch) => {
     return axios.get('api/auth/me')
       .then(res => res.data)
@@ -92,7 +109,7 @@ const getMe = () => {
 
 const deletedUser = {};
 
-const logout = () => {
+const logoutThunk = () => {
   return(dispatch) => {
     return axios.delete('api/auth/logout')
       .then(() => dispatch(gotUser(deletedUser)))
@@ -100,8 +117,7 @@ const logout = () => {
   }
 }
 
-// *********** AUTH REDUCERS
-
+// *********** AUTH REDUCER
 const authReducer = (state = {}, action) => {
   switch(action.type) {
     case GET_USER: 
@@ -111,11 +127,39 @@ const authReducer = (state = {}, action) => {
   };
 };
 
+// *********** MODAL ACTION TYPES
+const SHOW_MODAL = 'SHOW_MODAL'
+const HIDE_MODAL = 'HIDE_MODAL'
+
+// *********** MODAL ACTION CREATORS
+const showModalAction = (img) => ({ type: SHOW_MODAL, img })
+const hideModalAction = () => ({ type: HIDE_MODAL })
+
+// *********** MODAL THUNKS
+
+// *********** MODAL OPEN/CLOSE REDUCER
+const modalInitialState = { 
+  open: false,
+  image: {}
+ }
+
+const modalReducer = (state = modalInitialState, action) => {
+  switch(action.type) {
+    case SHOW_MODAL:
+      return { ...state, open: true, image: action.img }
+    case HIDE_MODAL:
+      return modalInitialState
+    default:
+      return state
+  }
+}
+
 // COMBINE REDUCERS & STORE
 // *********** COMBINE REDUCERS
 const reducer = combineReducers({
   images: imageReducer,
   user: authReducer,
+  modal: modalReducer
 });
 
 // *********** STORE
@@ -140,8 +184,10 @@ export {
   loadImagesByCategoryThunk,
   deleteImageThunk,
   loginThunk,
-  getMe,
-  logout
+  getMeThunk,
+  logoutThunk,
+  showModalAction,
+  hideModalAction
 };
 
 

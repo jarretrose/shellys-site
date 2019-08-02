@@ -10,7 +10,7 @@ import Contact from './Contact';
 import { connect } from 'react-redux';
 import UserPage from './UserPage';
 import Login from './Login';
-import store, { getMe, loadAllImagesThunk } from '../store';
+import store, { getMeThunk, loadAllImagesThunk, hideModalAction } from '../store';
 
 const drawerWidth = 160;
 
@@ -75,7 +75,7 @@ const mapStateToProps = ({ user, images }) => ({ user, images })
 const mapDispatchToProps = dispatch => {
   return {
     init() {
-      dispatch(getMe());
+      dispatch(getMeThunk());
       dispatch(loadAllImagesThunk());
     }
   }

@@ -15,7 +15,7 @@ const ADD_IMAGE = 'ADD_IMAGE';
 const loadAllImagesAction = (images) => ({ type: LOAD_ALL_IMAGES, images });
 const loadImagesByCategoryAction = (images) => ({ type: LOAD_IMAGES_BY_CATEGORY, images });
 const deleteImageAction = (imageID) => ({ type: DELETE_IMAGE, imageID });
-const editImageAction = (update) => ({ type: EDIT_IMAGE, update });
+const editImageAction = (image) => ({ type: EDIT_IMAGE, image });
 const addImageAction = (image) => ({ type: ADD_IMAGE, image });
 
 // *********** IMAGE THUNKS
@@ -47,11 +47,11 @@ const deleteImageThunk = (imageID) => {
   }
 }
 
-const editImageThunk = (id, updatedInfo) => {
+const editImageThunk = (image) => {
   return (dispatch) => {
-    axios.put(`/api/images/${id}`, updatedInfo)
+    axios.put(`/api/images/${image.id}`, image)
       .then(response => response.data)
-      .then(newInfo => dispatch(editImageAction(newInfo)))
+      .then(image => dispatch(editImageAction(image)))
       .catch(console.error.bind(console))
   }
 }
@@ -70,8 +70,8 @@ const imageReducer = (state = [], action) => {
       return sorting(state.filter(img => img.id !== action.imageID))
     case EDIT_IMAGE:
       return state.map(img => {
-        if (img.id === action.newInfo.id) {
-          return action.newInfo
+        if (img.id === action.image.id) {
+          return action.image
         } else {
           return img
         }
@@ -187,7 +187,8 @@ export {
   getMeThunk,
   logoutThunk,
   showModalAction,
-  hideModalAction
+  hideModalAction,
+  editImageThunk
 };
 
 

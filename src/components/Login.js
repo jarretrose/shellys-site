@@ -156,8 +156,8 @@ const mapStateToProps = ({ user }) => ({ user })
 const mapDispatchToProps = (dispatch, ownProps) => {
   const history = ownProps.history;
   return {
-    login: (email, password) => {
-      dispatch(loginThunk(email, password))
+    login: (userinfo) => {
+      dispatch(loginThunk(userinfo))
         .then(() => history.push('/admin'))
     }
   }

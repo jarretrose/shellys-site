@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import store, { showModalAction, hideModalAction } from '../store'
+import store, { showModalAction, hideModalAction, editImageThunk } from '../store'
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -19,10 +19,12 @@ const useStyles = makeStyles(theme => ({
 
 const EditDialog = (props) => {
 
-  if (!props.modal.image.id) return <span>No image to edit.</span>
+  // hacky way to make sure image info has made into the component
+  if (!props.modal.image.id ) return <span>{''}</span>
 
   // playing with React Hooks for the form
   const [values, setValues] = useState({
+    id: props.modal.image.id,
     name: props.modal.image.name, 
     category: props.modal.image.category, 
     imageURL: props.modal.image.imageURL, 
@@ -41,8 +43,13 @@ const EditDialog = (props) => {
 
   // const handleClickOpen = () => openModal()
   const handleClose = () => closeModal()
-  const handleSubmit = () => submitModal()
-  
+  const handleSubmit = () => {
+    const {id, name, category, imageURL, desc } = values
+    submitModal({id, name, category, imageURL, desc})
+    closeModal()
+  }
+
+
   return (
     <div>
       <Dialog 
@@ -117,7 +124,7 @@ const mapDispatchToProps = dispatch => {
   return {
     openModal: () => dispatch(showModalAction()),
     closeModal: () => dispatch(hideModalAction()),
-    submitModal: () => console.log('SUBMIT ', name.value)
+    submitModal: (image) => dispatch(editImageThunk(image))   
   }
 }
 

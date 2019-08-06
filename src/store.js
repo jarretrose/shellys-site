@@ -56,6 +56,15 @@ const editImageThunk = (image) => {
   }
 }
 
+const addImageThunk = (image) => {
+  return (dispatch) => {
+    axios.post('/api/images/', image)
+      .then(response => response.data)
+      .then(image => dispatch(addImageAction(image)))
+      .catch(error => console.error.bind(console))
+  }
+}
+
 // mini helper to sort images consistently
 const sorting = (returnedState) => returnedState.sort((a,b) => a.createdAt - b.createdAt)
 
@@ -68,6 +77,8 @@ const imageReducer = (state = [], action) => {
       return sorting(action.images)
     case DELETE_IMAGE:
       return sorting(state.filter(img => img.id !== action.imageID))
+    case ADD_IMAGE:
+      return [...state, action.image]
     case EDIT_IMAGE:
       return state.map(img => {
         if (img.id === action.image.id) {
@@ -194,7 +205,8 @@ export {
   logoutThunk,
   showModalAction,
   hideModalAction,
-  editImageThunk
+  editImageThunk,
+  addImageThunk
 };
 
 

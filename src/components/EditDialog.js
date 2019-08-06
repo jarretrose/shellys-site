@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import store, { showModalAction, hideModalAction, editImageThunk } from '../store'
+import store, { showModalAction, hideModalAction, editImageThunk, addImageThunk } from '../store'
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -22,7 +22,7 @@ const EditDialog = (props) => {
   // hacky way to make sure image info has made into the component
   if (!props.modal.modalType) return <span />
 
-  const { openModal, closeModal, submitModal } = props;
+  const { openModal, closeModal, submitEditModal, submitAddModal } = props;
   const { modalProps, modalType } = props.modal
 
   // playing with React Hooks for the form
@@ -43,15 +43,23 @@ const EditDialog = (props) => {
 
   // const handleClickOpen = () => openModal()
   const handleClose = () => closeModal()
-  const handleSubmit = () => {
+
+  const handleEditImage = () => {
     const {id, name, category, imageURL, desc } = values
-    submitModal({id, name, category, imageURL, desc})
+    submitEditModal({id, name, category, imageURL, desc})
+    closeModal()
+  }
+
+  const handleAddImage = () => {
+    const {name, category, imageURL, desc } = values
+    submitAddModal({name, category, imageURL, desc})
     closeModal()
   }
 
   let modalTitle;
   let modalSubtitle;
   let submitButton;
+  let handleSubmit;
 
   if (modalType === 'editImageModal') {
     modalTitle = 'Edit Image Information'
@@ -123,7 +131,7 @@ const EditDialog = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={modalType === 'editImageModal' ? handleEditImage : handleAddImage}     color="primary">
             {submitButton}
           </Button>
         </DialogActions>
@@ -138,7 +146,8 @@ const mapDispatchToProps = dispatch => {
   return {
     openModal: () => dispatch(showModalAction()),
     closeModal: () => dispatch(hideModalAction()),
-    submitModal: (image) => dispatch(editImageThunk(image))   
+    submitEditModal: (image) => dispatch(editImageThunk(image)),
+    submitAddModal: (image) => dispatch(addImageThunk(image)) 
   }
 }
 

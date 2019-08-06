@@ -20,15 +20,18 @@ const useStyles = makeStyles(theme => ({
 const EditDialog = (props) => {
 
   // hacky way to make sure image info has made into the component
-  if (!props.modal.image.id ) return <span>{''}</span>
+  if (!props.modal.modalType) return <span />
+
+  const { openModal, closeModal, submitModal } = props;
+  const { modalProps, modalType } = props.modal
 
   // playing with React Hooks for the form
   const [values, setValues] = useState({
-    id: props.modal.image.id,
-    name: props.modal.image.name, 
-    category: props.modal.image.category, 
-    imageURL: props.modal.image.imageURL, 
-    desc: props.modal.image.desc, 
+    id: modalType === 'editImageModal' ? modalProps.id : '',
+    name: modalType === 'editImageModal' ? modalProps.name : '', 
+    category: modalType === 'editImageModal' ? modalProps.category : '', 
+    imageURL: modalType === 'editImageModal' ? modalProps.imageURL : '', 
+    desc: modalType === 'editImageModal' ? modalProps.desc : '', 
   })
 
   const classes = useStyles();
@@ -38,15 +41,26 @@ const EditDialog = (props) => {
     setValues({ ...values, [name]: event.target.value });
   }
 
-  // using a reducer for modal, for fun
-  const { openModal, closeModal, submitModal } = props;
-
   // const handleClickOpen = () => openModal()
   const handleClose = () => closeModal()
   const handleSubmit = () => {
     const {id, name, category, imageURL, desc } = values
     submitModal({id, name, category, imageURL, desc})
     closeModal()
+  }
+
+  let modalTitle;
+  let modalSubtitle;
+  let submitButton;
+
+  if (modalType === 'editImageModal') {
+    modalTitle = 'Edit Image Information'
+    modalSubtitle = 'Select the information you want to change.'
+    submitButton = 'Update'
+  } else if (modalType === 'addImageModal') {
+    modalTitle = 'Add Image Information'
+    modalSubtitle = 'Please fill out all of the following fields.'
+    submitButton = 'Add Image'
   }
 
 
@@ -57,10 +71,10 @@ const EditDialog = (props) => {
         onClose={handleClose} 
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Edit Image Information</DialogTitle>
+        <DialogTitle id="form-dialog-title">{modalTitle}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Select the information you want to change.
+            {modalSubtitle}
           </DialogContentText>
 
               <TextField
@@ -110,7 +124,7 @@ const EditDialog = (props) => {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Update
+            {submitButton}
           </Button>
         </DialogActions>
       </Dialog>
@@ -118,7 +132,7 @@ const EditDialog = (props) => {
   );
 }
 
-const mapStateToProps = ({ modal }) => ({ modal })
+const mapStateToProps = ({ images, modal }) => ({ images, modal })
 
 const mapDispatchToProps = dispatch => {
   return {

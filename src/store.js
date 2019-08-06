@@ -132,7 +132,7 @@ const SHOW_MODAL = 'SHOW_MODAL'
 const HIDE_MODAL = 'HIDE_MODAL'
 
 // *********** MODAL ACTION CREATORS
-const showModalAction = (img) => ({ type: SHOW_MODAL, img })
+const showModalAction = (modalType, modalProps) => ({ type: SHOW_MODAL, modalType, modalProps })
 const hideModalAction = () => ({ type: HIDE_MODAL })
 
 // *********** MODAL THUNKS
@@ -140,13 +140,19 @@ const hideModalAction = () => ({ type: HIDE_MODAL })
 // *********** MODAL OPEN/CLOSE REDUCER
 const modalInitialState = { 
   open: false,
-  image: {}
+  modalType: null,
+  modalProps: {}
  }
 
 const modalReducer = (state = modalInitialState, action) => {
   switch(action.type) {
     case SHOW_MODAL:
-      return { ...state, open: true, image: action.img }
+      console.log
+      return { 
+        open: true,
+        modalType: action.modalType,
+        modalProps: action.modalProps 
+      }
     case HIDE_MODAL:
       return modalInitialState
     default:

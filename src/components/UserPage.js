@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { logoutThunk } from '../store';
+import { logoutThunk, showModalAction } from '../store';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import AdminImageList from './AdminImageList';
 import AdminAddImage from './AdminAddImage';
 import Box from '@material-ui/core/Box';
+import EditDialog from './EditDialog';
 
 const styles = theme => ({
   root: {
@@ -55,11 +56,9 @@ class UserPage extends Component {
   }
 
   handleClickAddImage() {
-    const { addImageIsVisible, allImagesIsVisible } = this.state;
-    this.setState({ 
-      addImageIsVisible: !addImageIsVisible,
-      allImagesIsVisible: allImagesIsVisible ? false : null,
-    })
+    const { openModal } = this.props;
+    const addImageModal = 'addImageModal'
+    openModal(addImageModal, null)
   }
 
   render() {
@@ -84,8 +83,9 @@ class UserPage extends Component {
         </div>
 
         <div className={classes.actionArea}>
+          <EditDialog />
           { allImagesIsVisible && <AdminImageList /> }
-          { addImageIsVisible && <AdminAddImage /> }
+          {/* { addImageIsVisible && <AdminAddImage /> } */}
         </div>
 
       </div>
@@ -97,7 +97,9 @@ const mapStateToProps = ({ user, images }) => ({ user, images })
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleClickLogout: () => (dispatch(logoutThunk()))
+    handleClickLogout: () => (dispatch(logoutThunk())),
+    openModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
+
   }
 }
 

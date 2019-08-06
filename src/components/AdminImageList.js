@@ -43,9 +43,10 @@ const AdminImageList = props => {
   const classes = useStyles();
   const theme = useTheme();
   const { images, deleteImage, openModal } = props;
+  const editImageModal = 'editImageModal'
 
   const handleDelete = (id) => deleteImage(id);
-  const handleEdit = (img) => openModal(img)
+  const handleEdit = (editImageModal, img) => openModal(editImageModal, img)
 
   return (
     <div className={classes.root}>
@@ -79,7 +80,7 @@ const AdminImageList = props => {
                             <DeleteIcon />
                           </IconButton>
 
-                          <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(img)}>
+                          <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(editImageModal, img)}>
                             <EditIcon />
                           </IconButton>
 
@@ -98,12 +99,12 @@ const AdminImageList = props => {
   );
 };
 
-const mapStateToProps = ({ images }) => ({ images })
+const mapStateToProps = ({ images, modal }) => ({ images, modal })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteImage: (imageID) => dispatch(deleteImageThunk(imageID)),
-    openModal: (img) => dispatch(showModalAction(img))
+    openModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
   }
 }
 

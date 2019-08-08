@@ -22,17 +22,19 @@ const EditDialog = (props) => {
   // hacky way to make sure image info has made into the component
   if (!props.modal.modalType) return <span />
 
-  const { openModal, closeModal, submitEditModal, submitAddModal } = props;
+  console.log(props)
+
+  const { closeModal, submitEditModal, submitAddModal } = props;
   const { modalProps, modalType } = props.modal
 
   // playing with React Hooks for the form
   const [values, setValues] = useState({
-    id: modalType === 'editImageModal' ? modalProps.id : '',
-    name: modalType === 'editImageModal' ? modalProps.name : '',
-    category: modalType === 'editImageModal' ? modalProps.category : '',
-    imageURL: modalType === 'editImageModal' ? modalProps.imageURL : '',
-    thumbnailURL: modalType === 'editImageModal' ? modalProps.thumbnailURL : '',
-    desc: modalType === 'editImageModal' ? modalProps.desc : '',
+    id: modalType === 'EDIT_IMAGE' ? modalProps.id : '',
+    name: modalType === 'EDIT_IMAGE' ? modalProps.name : '',
+    category: modalType === 'EDIT_IMAGE' ? modalProps.category : '',
+    imageURL: modalType === 'EDIT_IMAGE' ? modalProps.imageURL : '',
+    thumbnailURL: modalType === 'EDIT_IMAGE' ? modalProps.thumbnailURL : '',
+    desc: modalType === 'EDIT_IMAGE' ? modalProps.desc : '',
   })
 
   const classes = useStyles();
@@ -42,13 +44,13 @@ const EditDialog = (props) => {
     setValues({ ...values, [name]: event.target.value });
   }
 
-  // const handleClickOpen = () => openModal()
   const handleClose = () => closeModal()
 
   const validateForm = () => {
+    const { modalType } = props.modal
     const { id, name, category, imageURL, thumbnailURL, desc } = values
     if (name === '' || category === '' || imageURL === ''  || thumbnailURL === ''  || desc === '') (alert('All fields must be filled out.'))
-    else modalType === 'editImageModal' ? handleEditImage() : handleAddImage()
+    else modalType === 'EDIT_IMAGE' ? handleEditImage() : handleAddImage()
   }
 
   const handleEditImage = () => {
@@ -68,16 +70,15 @@ const EditDialog = (props) => {
   let submitButton;
   // let handleSubmit;
 
-  if (modalType === 'editImageModal') {
+  if (modalType === 'EDIT_IMAGE') {
     modalTitle = 'Edit Image Information'
     modalSubtitle = 'Select the information you want to change.'
     submitButton = 'Update'
-  } else if (modalType === 'addImageModal') {
+  } else if (modalType === 'ADD_IMAGE') {
     modalTitle = 'Add Image Information'
     modalSubtitle = 'Please fill out all of the following fields.'
     submitButton = 'Add Image'
   }
-
 
   return (
     <div>

@@ -1,5 +1,5 @@
 // main React file
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Nav from './Nav.js';
@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import UserPage from './UserPage';
 import Login from './Login';
 import store, { getMeThunk, loadAllImagesThunk, hideModalAction } from '../store';
+import RootModal from './RootModal'
 
 const drawerWidth = 160;
 
@@ -45,27 +46,30 @@ class App extends Component {
 
   componentDidUpdate() {
   }
-  
+
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.background}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <Nav />
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <Switch>
-              <Route path='/images/:category' component={Gallery} />
-              <Route path='/about' component={About} />
-              <Route path='/contact' component={Contact} />
-              <Route path='/login' component={Login} />
-              <Route path='/admin' component={UserPage} />
-            </Switch>
-          </main>
+      <>
+        <RootModal />
+        <div className={classes.background}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <Nav />
+            <main className={classes.content}>
+              <div className={classes.appBarSpacer} />
+              <Switch>
+                <Route path='/images/:category' component={Gallery} />
+                <Route path='/about' component={About} />
+                <Route path='/contact' component={Contact} />
+                <Route path='/login' component={Login} />
+                <Route path='/admin' component={UserPage} />
+              </Switch>
+            </main>
+          </div>
         </div>
-      </div>
+      </>
     );
   };
 };

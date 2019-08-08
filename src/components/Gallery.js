@@ -5,6 +5,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
+import store, { showModalAction } from '../store'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,10 +27,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Gallery = (props) => {
-  const { images, width } = props;
+  const { images, width, openModal } = props;
   const classes = useStyles();
   const theme = useTheme();
   const imageCategory = props.match.params.category;
+  const SHOW_IMAGE = 'SHOW_IMAGE'
+
+  const handleImageClick = (modalType, modalProps) => openModal(modalType, modalProps)
 
   // number of columns in the gallery
   const getNumberOfColumns = () => {
@@ -74,7 +78,7 @@ const Gallery = (props) => {
         <GridList cellHeight={160} cols={getNumberOfColumns()} className={classes.gridList} >
           {images.filter(image => image.category === imageCategory)
             .map((img, idx) => (
-              <GridListTile style={{ background: 'rgba(0,0,0,.5' }} key={img.name} cols={1} rows={2} >
+              <GridListTile style={{ background: 'rgba(0,0,0,.5', cursor: 'pointer' }} key={img.name} cols={1} rows={2} onClick={() => handleImageClick(SHOW_IMAGE, img)}>
                 <img src={img.imageURL} alt={img.name} />
               </GridListTile>
           ))}
@@ -86,4 +90,10 @@ const Gallery = (props) => {
 
 const mapStateToProps = ({ images }) => ({ images })
 
-export default withWidth()(connect(mapStateToProps)(Gallery));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    openModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
+  }
+}
+
+export default withWidth()(connect(mapStateToProps, mapDispatchToProps)(Gallery));

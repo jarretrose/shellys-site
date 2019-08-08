@@ -57,13 +57,13 @@ class UserPage extends Component {
 
   handleClickAddImage() {
     const { openModal } = this.props;
-    const addImageModal = 'addImageModal'
-    openModal(addImageModal, null)
+    const ADD_IMAGE = 'ADD_IMAGE'
+    openModal(ADD_IMAGE, null)
   }
 
   render() {
     const { classes, user, handleClickLogout } = this.props;
-    const { allImagesIsVisible, addImageIsVisible } = this.state;
+    const { allImagesIsVisible } = this.state;
 
     if (!user.id) return <Redirect to='/login' />
 
@@ -83,9 +83,7 @@ class UserPage extends Component {
         </div>
 
         <div className={classes.actionArea}>
-          <EditDialog />
           { allImagesIsVisible && <AdminImageList /> }
-          {/* { addImageIsVisible && <AdminAddImage /> } */}
         </div>
 
       </div>

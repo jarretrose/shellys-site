@@ -43,6 +43,7 @@ const deleteImageThunk = (imageID) => {
     axios.delete(`/api/images/${id}`)
       .then(response => response.data)
       .then(() => dispatch(deleteImageAction(imageID)))
+      .then(() => alert('Image deleted successfully!'))
       .catch(err => alert('Something went wrong.'))
   }
 }
@@ -52,6 +53,7 @@ const editImageThunk = (image) => {
     axios.put(`/api/images/${image.id}`, image)
       .then(response => response.data)
       .then(image => dispatch(editImageAction(image)))
+      .then(() => alert('Image edited successfully!'))
       .catch(err => alert('Something went wrong.'))
   }
 }
@@ -61,6 +63,7 @@ const addImageThunk = (image) => {
     axios.post('/api/images/', image)
       .then(response => response.data)
       .then(image => dispatch(addImageAction(image)))
+      .then(() => alert('Image added successfully!'))
       .catch(err => alert('Something went wrong.'))
   }
 }

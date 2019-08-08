@@ -24,7 +24,7 @@ const loadAllImagesThunk = () => {
     axios.get('/api/images')
       .then(response => response.data)
       .then(images => dispatch(loadAllImagesAction(images)))
-      .catch(console.error.bind(console))
+      .catch(err => console.log(err))
   }
 }
 
@@ -33,7 +33,7 @@ const loadImagesByCategoryThunk = (category) => {
     axios.get(`/api/images/${category}`)
       .then(response => response.data)
       .then(images => dispatch(loadImagesByCategoryAction(images)))
-      .catch(console.error.bind(console))
+      .catch(err => console.log(err))
   };
 };
 
@@ -43,7 +43,7 @@ const deleteImageThunk = (imageID) => {
     axios.delete(`/api/images/${id}`)
       .then(response => response.data)
       .then(() => dispatch(deleteImageAction(imageID)))
-      .catch(console.error.bind(console))
+      .catch(err => alert('Something went wrong.'))
   }
 }
 
@@ -52,7 +52,7 @@ const editImageThunk = (image) => {
     axios.put(`/api/images/${image.id}`, image)
       .then(response => response.data)
       .then(image => dispatch(editImageAction(image)))
-      .catch(console.error.bind(console))
+      .catch(err => alert('Something went wrong.'))
   }
 }
 
@@ -61,7 +61,7 @@ const addImageThunk = (image) => {
     axios.post('/api/images/', image)
       .then(response => response.data)
       .then(image => dispatch(addImageAction(image)))
-      .catch(error => console.error.bind(console))
+      .catch(err => alert('Something went wrong.'))
   }
 }
 
@@ -105,7 +105,7 @@ const loginThunk = (userInfo) => {
     return axios.put('/api/auth/login', userInfo)
       .then(response => response.data)
       .then(user => dispatch(gotUser(user)))
-      .catch(console.error.bind(console))
+      .catch(err => err.response.status === 401 ? alert('Bad Username or Password') : null)
   };
 };
 
@@ -114,17 +114,17 @@ const getMeThunk = () => {
     return axios.get('api/auth/me')
       .then(res => res.data)
       .then(user => dispatch(gotUser(user)))
-      .catch(console.error.bind(console))
+      .catch(err => console.log(err))
   }
 }
 
-const deletedUser = {};
+const noUser = {};
 
 const logoutThunk = () => {
   return(dispatch) => {
     return axios.delete('api/auth/logout')
-      .then(() => dispatch(gotUser(deletedUser)))
-      .catch(console.error.bind(console))
+      .then(() => dispatch(gotUser(noUser)))
+      .catch(err => alert('Something went wrong.'))
   }
 }
 
@@ -158,11 +158,10 @@ const modalInitialState = {
 const modalReducer = (state = modalInitialState, action) => {
   switch(action.type) {
     case SHOW_MODAL:
-      console.log
       return { 
         open: true,
         modalType: action.modalType,
-        modalProps: action.modalProps 
+        modalProps: action.modalProps,
       }
     case HIDE_MODAL:
       return modalInitialState

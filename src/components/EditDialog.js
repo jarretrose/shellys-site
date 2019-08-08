@@ -28,10 +28,11 @@ const EditDialog = (props) => {
   // playing with React Hooks for the form
   const [values, setValues] = useState({
     id: modalType === 'editImageModal' ? modalProps.id : '',
-    name: modalType === 'editImageModal' ? modalProps.name : '', 
-    category: modalType === 'editImageModal' ? modalProps.category : '', 
-    imageURL: modalType === 'editImageModal' ? modalProps.imageURL : '', 
-    desc: modalType === 'editImageModal' ? modalProps.desc : '', 
+    name: modalType === 'editImageModal' ? modalProps.name : '',
+    category: modalType === 'editImageModal' ? modalProps.category : '',
+    imageURL: modalType === 'editImageModal' ? modalProps.imageURL : '',
+    thumbnailURL: modalType === 'editImageModal' ? modalProps.thumbnailURL : '',
+    desc: modalType === 'editImageModal' ? modalProps.desc : '',
   })
 
   const classes = useStyles();
@@ -44,22 +45,28 @@ const EditDialog = (props) => {
   // const handleClickOpen = () => openModal()
   const handleClose = () => closeModal()
 
+  const validateForm = () => {
+    const { id, name, category, imageURL, thumbnailURL, desc } = values
+    if (name === '' || category === '' || imageURL === ''  || thumbnailURL === ''  || desc === '') (alert('All fields must be filled out.'))
+    else modalType === 'editImageModal' ? handleEditImage() : handleAddImage()
+  }
+
   const handleEditImage = () => {
-    const {id, name, category, imageURL, desc } = values
-    submitEditModal({id, name, category, imageURL, desc})
+    const { id, name, category, imageURL, thumbnailURL, desc } = values
+    submitEditModal({ id, name, category, imageURL, thumbnailURL, desc })
     closeModal()
   }
 
   const handleAddImage = () => {
-    const {name, category, imageURL, desc } = values
-    submitAddModal({name, category, imageURL, desc})
+    const { name, category, imageURL, thumbnailURL, desc } = values
+    submitAddModal({ name, category, imageURL, thumbnailURL, desc })
     closeModal()
   }
 
   let modalTitle;
   let modalSubtitle;
   let submitButton;
-  let handleSubmit;
+  // let handleSubmit;
 
   if (modalType === 'editImageModal') {
     modalTitle = 'Edit Image Information'
@@ -74,9 +81,9 @@ const EditDialog = (props) => {
 
   return (
     <div>
-      <Dialog 
-        open={props.modal.open} 
-        onClose={handleClose} 
+      <Dialog
+        open={props.modal.open}
+        onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{modalTitle}</DialogTitle>
@@ -85,33 +92,42 @@ const EditDialog = (props) => {
             {modalSubtitle}
           </DialogContentText>
 
-              <TextField
-                id="name"
-                margin="dense"
-                label="Image Name"
-                value={values.name}
-                onChange={handleChange('name')}
-                fullWidth
-              />
+          <TextField
+            id="name"
+            margin="dense"
+            label="Image Name"
+            value={values.name}
+            onChange={handleChange('name')}
+            fullWidth
+          />
 
-              <TextField
-                id="imageURL"
-                margin="dense"
-                label="Image URL"
-                value={values.imageURL}
-                onChange={handleChange('imageURL')}
-                fullWidth
-              />
+          <TextField
+            id="imageURL"
+            margin="dense"
+            label="Image URL"
+            value={values.imageURL}
+            onChange={handleChange('imageURL')}
+            fullWidth
+          />
 
-              <TextField
-                id="desc"
-                margin="dense"
-                label="Short Description"
-                value={values.desc}
-                onChange={handleChange('desc')}
-                fullWidth
-              />
-              
+          <TextField
+            id="thumbnailURL"
+            margin="dense"
+            label="Thumbnail URL"
+            value={values.thumbnailURL}
+            onChange={handleChange('thumbnailURL')}
+            fullWidth
+          />
+
+          <TextField
+            id="desc"
+            margin="dense"
+            label="Short Description"
+            value={values.desc}
+            onChange={handleChange('desc')}
+            fullWidth
+          />
+
           <TextField
             select
             fullWidth
@@ -131,7 +147,11 @@ const EditDialog = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={modalType === 'editImageModal' ? handleEditImage : handleAddImage}     color="primary">
+
+          {/* <Button onClick={modalType === 'editImageModal' ? handleEditImage : handleAddImage} color="primary"> */}
+
+          <Button onClick={validateForm} color="primary">
+
             {submitButton}
           </Button>
         </DialogActions>
@@ -147,7 +167,7 @@ const mapDispatchToProps = dispatch => {
     openModal: () => dispatch(showModalAction()),
     closeModal: () => dispatch(hideModalAction()),
     submitEditModal: (image) => dispatch(editImageThunk(image)),
-    submitAddModal: (image) => dispatch(addImageThunk(image)) 
+    submitAddModal: (image) => dispatch(addImageThunk(image))
   }
 }
 

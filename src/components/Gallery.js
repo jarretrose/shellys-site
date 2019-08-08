@@ -72,7 +72,7 @@ const Gallery = (props) => {
   return (
     <>
       <Typography className={classes.type}>
-        Click on any image to see full size.
+        Click on any image to increase size.
       </Typography>
       <div className={classes.root}>
         <GridList cellHeight={160} cols={getNumberOfColumns()} className={classes.gridList} >

@@ -7,27 +7,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import store, { showModalAction, hideModalAction, editImageThunk, addImageThunk } from '../store'
+import { showModalAction, hideModalAction, editImageThunk, addImageThunk } from '../store'
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-}));
 
 const EditDialog = (props) => {
 
-  // hacky way to make sure image info has made into the component
   if (!props.modal.modalType) return <span />
-
-  console.log(props)
 
   const { closeModal, submitEditModal, submitAddModal } = props;
   const { modalProps, modalType } = props.modal
 
-  // playing with React Hooks for the form
   const [values, setValues] = useState({
     id: modalType === 'EDIT_IMAGE' ? modalProps.id : '',
     name: modalType === 'EDIT_IMAGE' ? modalProps.name : '',
@@ -37,9 +26,6 @@ const EditDialog = (props) => {
     desc: modalType === 'EDIT_IMAGE' ? modalProps.desc : '',
   })
 
-  const classes = useStyles();
-  const theme = useTheme();
-
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   }
@@ -47,7 +33,6 @@ const EditDialog = (props) => {
   const handleClose = () => closeModal()
 
   const validateForm = () => {
-    const { modalType } = props.modal
     const { id, name, category, imageURL, thumbnailURL, desc } = values
     if (name === '' || category === '' || imageURL === ''  || thumbnailURL === ''  || desc === '') (alert('All fields must be filled out.'))
     else modalType === 'EDIT_IMAGE' ? handleEditImage() : handleAddImage()
@@ -68,7 +53,6 @@ const EditDialog = (props) => {
   let modalTitle;
   let modalSubtitle;
   let submitButton;
-  // let handleSubmit;
 
   if (modalType === 'EDIT_IMAGE') {
     modalTitle = 'Edit Image Information'
@@ -149,12 +133,10 @@ const EditDialog = (props) => {
             Cancel
           </Button>
 
-          {/* <Button onClick={modalType === 'editImageModal' ? handleEditImage : handleAddImage} color="primary"> */}
-
           <Button onClick={validateForm} color="primary">
-
             {submitButton}
           </Button>
+
         </DialogActions>
       </Dialog>
     </div>

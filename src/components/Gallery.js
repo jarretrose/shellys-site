@@ -5,15 +5,13 @@ import GridListTile from '@material-ui/core/GridListTile';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import store, { showModalAction } from '../store'
+import { showModalAction } from '../store'
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    // backgroundColor: 'rgba(0,0,0,0)',
-    // overflow: 'hidden',
   },
   type: {
     fontFamily: "'Satisfy', cursive",
@@ -70,7 +68,7 @@ const Gallery = (props) => {
   if (!images.length) return <span>No images to load.</span>
 
   return (
-    <>
+    <Fragment>
       <Typography className={classes.type}>
         Click on any image to increase size.
       </Typography>
@@ -84,7 +82,7 @@ const Gallery = (props) => {
           ))}
         </GridList>
       </div>
-    </>
+    </Fragment>
   )
 }
 

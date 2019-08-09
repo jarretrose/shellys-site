@@ -42,7 +42,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -56,7 +56,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: '', // using email address for login
+      email: '',
       password: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);

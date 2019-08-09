@@ -153,7 +153,6 @@ const Nav = (props) => {
           </Drawer>
         </Hidden>
       </nav>
-
     </div>
   );
 };

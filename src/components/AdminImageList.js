@@ -25,11 +25,6 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     margin: 10,
   },
-  // avatar: {
-  //   margin: 10,
-  //   width: 60,
-  //   height: 60,
-  // },
   bgImageList: {
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 5,

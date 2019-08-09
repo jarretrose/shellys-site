@@ -1,4 +1,3 @@
-// main React file
 import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +9,7 @@ import Contact from './Contact';
 import { connect } from 'react-redux';
 import UserPage from './UserPage';
 import Login from './Login';
-import store, { getMeThunk, loadAllImagesThunk, hideModalAction } from '../store';
+import { getMeThunk, loadAllImagesThunk, hideModalAction } from '../store';
 import RootModal from './RootModal'
 
 const drawerWidth = 160;
@@ -44,14 +43,11 @@ class App extends Component {
     init()
   }
 
-  componentDidUpdate() {
-  }
-
   render() {
     const { classes } = this.props;
 
     return (
-      <>
+      <Fragment>
         <RootModal />
         <div className={classes.background}>
           <div className={classes.root}>
@@ -69,7 +65,7 @@ class App extends Component {
             </main>
           </div>
         </div>
-      </>
+      </Fragment>
     );
   };
 };

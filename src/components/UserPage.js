@@ -1,19 +1,12 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logoutThunk, showModalAction } from '../store';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import AdminImageList from './AdminImageList';
-import AdminAddImage from './AdminAddImage';
 import Box from '@material-ui/core/Box';
-import EditDialog from './EditDialog';
 
 const styles = theme => ({
   root: {
@@ -29,10 +22,7 @@ const styles = theme => ({
   },
   welcome: {
     marginBottom: theme.spacing(1),
-  },
-  actionArea: {
-
-  },
+  }
 });
 
 
@@ -41,7 +31,6 @@ class UserPage extends Component {
     super()
     this.state = {
       allImagesIsVisible: false,
-      addImageIsVisible: false,
     }
     this.handleClickAddImage = this.handleClickAddImage.bind(this);
     this.handleClickListAllImages = this.handleClickListAllImages.bind(this);
@@ -69,11 +58,9 @@ class UserPage extends Component {
 
     return (
       <div className={classes.root}>
-
         <div className={classes.welcome}>
 
           <Typography variant="h5" gutterBottom>Welcome Back, {user.firstName}!</Typography>
-
           <Box display="flex" flexDirection="row">
             <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
             <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickListAllImages}>All Images</Button>
@@ -81,8 +68,8 @@ class UserPage extends Component {
           </Box>
 
         </div>
-
-        <div className={classes.actionArea}>
+        
+        <div>
           { allImagesIsVisible && <AdminImageList /> }
         </div>
 

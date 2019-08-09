@@ -10,12 +10,11 @@ const MODAL_COMPONENTS = {
 }
 
 const RootModal = ({ modalType, modalProps }) => {
-  if(!modalType) return <span />
+  if (!modalType) return <span />
 
+  const SpecificModal = MODAL_COMPONENTS[modalType]
 
-const SpecificModal = MODAL_COMPONENTS[modalType]
-return <SpecificModal {...modalProps} />
-
+  return <SpecificModal {...modalProps} />
 }
 
 export default connect(state => state.modal)(RootModal)

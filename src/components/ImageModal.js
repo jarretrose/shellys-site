@@ -2,26 +2,43 @@ import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { connect } from 'react-redux';
 import { showModalAction, hideModalAction } from '../store'
-import { useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
+import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 
+const styles = {
+  dialogPaper: {
+    position: 'fixed',
+    maxWidth: '100vw',
+    maxHeight: '100vh',
+    overflow: 'auto',
+    // left: '0',
+    // top: '0',
+  },
+  imageStyles: {
+    margin: 'auto',
+    display: 'block',
+    width: '100%',
+    maxWidth: '700px'
+  }
+}
 
 const ImageModal = (props) => {
 
   // hacky way to make sure image info has made into the component
   if (!props.modal.modalType) return <span />
+  console.log(props)
 
-  const { closeModal } = props;
-
-  const theme = useTheme();
+  const { closeModal, classes } = props;
 
   const handleClose = () => closeModal()
 
+
   return (
 
-    <div aria-label="full sized image">
-      <Dialog open={props.modal.open} onClose={handleClose} overflow={'auto'} >
-        <img style={{ margin: 'auto', display: 'block', width: '100%' }}
-          src={props.imageURL} />
+    <div aria-label="full sized image" className={classes.dialogPaper}>
+      <Dialog open={props.modal.open} onClose={handleClose} overflow={'auto'}
+      >
+        <img src={props.imageURL} className={classes.imageStyles}  />
       </Dialog>
     </div>
   )
@@ -36,4 +53,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageModal)
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ImageModal))

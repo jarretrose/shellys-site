@@ -155,7 +155,7 @@ const hideModalAction = () => ({ type: HIDE_MODAL })
 const modalInitialState = { 
   open: false,
   modalType: null,
-  modalProps: {}
+  modalProps: {},
  }
 
 const modalReducer = (state = modalInitialState, action) => {

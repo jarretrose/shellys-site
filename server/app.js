@@ -15,11 +15,17 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const checkSession = () => {
+  if (app.get('env') !== 'production' ) return false
+  else return true
+}
+
 // Session middleware
 app.use(session({
   secret: process.env.JWT_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: checkSession() }
 }))
 
 app.use(express.static(path.join(__dirname, '..', 'public')));

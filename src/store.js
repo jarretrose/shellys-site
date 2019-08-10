@@ -117,7 +117,8 @@ const getMeThunk = () => {
     return axios.get('api/auth/me')
       .then(res => res.data)
       .then(user => dispatch(gotUser(user)))
-      .catch(err => console.log(err))
+      // ignoring this error
+      .catch(err => {})
   }
 }
 
@@ -134,7 +135,7 @@ const logoutThunk = () => {
 // *********** AUTH REDUCER
 const authReducer = (state = {}, action) => {
   switch(action.type) {
-    case GET_USER: 
+    case GET_USER:
       return action.user;
     default:
       return state;

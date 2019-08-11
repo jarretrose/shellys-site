@@ -44,6 +44,7 @@ router.get('/me', (req, res, next) => {
   } else {
     User.findByPk(req.session.userId)
       .then(user => user ? res.json(user) : userNotFound(next))
+      .then(() => console.log('User found!'))
       .catch(err => console.log(err))
   }
 })

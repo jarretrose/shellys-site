@@ -15,7 +15,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Session middleware
+// Session middleware, because my JWT auth broke things and so I am using sessions in the meantime
 app.use(session({
   secret: process.env.JWT_SECRET,
   resave: false,

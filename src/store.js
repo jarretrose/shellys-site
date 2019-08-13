@@ -105,7 +105,7 @@ const gotUser = (user) => ({ type: GET_USER, user})
 // *********** AUTH THUNKS
 const loginThunk = (userInfo) => {
   return(dispatch) => {
-    return axios.put('/api/auth/login', userInfo)
+    return axios.post('/api/auth/login', userInfo)
       .then(response => response.data)
       .then(user => dispatch(gotUser(user)))
       .catch(err => err.response.status === 401 ? alert('Bad Username or Password') : null)
@@ -117,7 +117,6 @@ const getMeThunk = () => {
     return axios.get('api/auth/me')
       .then(res => res.data)
       .then(user => dispatch(gotUser(user)))
-      // ignoring this error
       .catch(err => {})
   }
 }
@@ -183,15 +182,10 @@ const reducer = combineReducers({
 });
 
 // *********** STORE
-let store;
+let mw = process.env.NODE_ENV !== 'production' ? [thunk, logger] : [thunk]
 
-if (process.env.NODE_ENV !== 'production') {
-  store = createStore(reducer, applyMiddleware(thunk, logger));
-}
+const store = createStore(reducer, applyMiddleware(...mw));
 
-if (process.env.NODE_ENV === 'production') {
-  store = createStore(reducer, applyMiddleware(thunk));
-}
 
 // *********** SELECTORS / HELPERS
 

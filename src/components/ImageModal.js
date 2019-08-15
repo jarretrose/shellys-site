@@ -10,11 +10,9 @@ const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
     zIndex: 3000,
-    paddingTop: 10,
-    paddingBottom: 50,
+    paddingTop: 100,
     [theme.breakpoints.down('sm')]: {
       paddingTop: 50,
-      paddingBottom: 50
     },
     left: 0,
     top: 0,
@@ -46,15 +44,15 @@ const useStyles = makeStyles(theme => ({
     color: 'rgb(255,255,255)',
     textAlign: 'center',
   },
-  imageContainer: {
-    position: 'relative',
-  }
+  // imageContainer: {
+  //   position: 'relative',
+  // }
 }))
 
 const closeButton = {
-  position: 'absolute',
-  bottom: -30,
-  right: 100,
+  position: 'fixed',
+  top: 10,
+  right: 10,
   cursor: 'pointer'
 }
 
@@ -70,19 +68,23 @@ const ImageModal = (props) => {
 
   // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a simple CSS solution instead and got more or less exactly what I wanted. 
   return (
-    <div className={classes.modal}>
+    <div className={classes.modal} onClick={handleClose}>
 
-      <div className={classes.imageContainer}>
+      {/* <div className={classes.imageContainer} onClick={handleClose}> */}
+
         <Typography className={classes.prettyText}>
           {props.name}
         </Typography>
+
         <img src={props.imageURL} className={classes.modalImage} />
+
         <div style={closeButton}>
-          <Button className={classes.button} variant="contained" color="secondary" onClick={handleClose}>
+          <Button className={classes.button} variant="contained" color="primary" onClick={handleClose}>
             <Typography className={classes.buttonText}>Close</Typography>
           </Button>
         </div>
-      </div>
+
+      {/* </div> */}
 
     </div>
   )

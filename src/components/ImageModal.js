@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 32,
     color: 'rgb(255,255,255)',
     textAlign: 'center',
+    padding: 10,
   },
   // imageContainer: {
   //   position: 'relative',

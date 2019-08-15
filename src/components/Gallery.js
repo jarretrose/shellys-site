@@ -18,11 +18,20 @@ const useStyles = makeStyles(theme => ({
     margin: 1,
     alignSelf: 'center',
     cursor: 'pointer',
+    overflow: 'hidden',
   },
   image: {
     margin: 2,
     maxWidth: 200,
     maxHeight: 200,
+    webkitfilter: 'grayscale(100%)',
+    filter: 'grayscale(100%)',
+    transition: 'transform .2s',
+    '&:hover': {
+      webkitfilter: 'grayscale(0%)',
+      filter: 'grayscale(0%)',
+      transform: 'scale(1.5)',
+    },
   },
   type: {
     fontFamily: "'Satisfy', cursive",

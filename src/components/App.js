@@ -49,7 +49,6 @@ class App extends Component {
     return (
       <Fragment>
         <RootModal />
-        <div className={classes.background}>
           <div className={classes.root}>
             <CssBaseline />
             <Nav />
@@ -64,7 +63,6 @@ class App extends Component {
               </Switch>
             </main>
           </div>
-        </div>
       </Fragment>
     );
   };

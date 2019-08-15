@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { showModalAction, hideModalAction } from '../store'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+// const styles = {
+  const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
     zIndex: 3000,
     paddingTop: 100,
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: 0,
+    },
     left: 0,
     top: 0,
     width: '100%',
@@ -30,14 +34,21 @@ const styles = {
     fontFamily: "'Satisfy', cursive",
     textTransform: 'none',
     fontSize: 16,
+  },
+  prettyText: {
+    fontFamily: "'Satisfy', cursive",
+    textTransform: 'none',
+    fontSize: 'calc(16px + 12 * ((100vw - 320px) / 960))',
+    color: 'rgb(255,255,255)',
+    textAlign: 'center',
   }
-}
+}))
 
 const closeButton = {
-    position: 'absolute',
-    bottom: 100,
-    right: 35,
-    cursor: 'pointer'
+  position: 'absolute',
+  bottom: '50px',
+  right: '35px',
+  cursor: 'pointer'
 }
 
 const ImageModal = (props) => {
@@ -45,19 +56,24 @@ const ImageModal = (props) => {
   // hacky way to make sure image info has made into the component
   if (!props.modal.modalType) return <span />
 
-  const { closeModal, classes } = props;
+  const { closeModal } = props;
+  const classes = useStyles();
+
   const handleClose = () => closeModal()
 
   // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a simple CSS solution instead and got more or less exactly what I wanted. 
   return (
     <div className={classes.modal}>
+      <Typography className={classes.prettyText}>
+        {props.name}
+      </Typography>
+      <img src={props.imageURL} className={classes.modalImage} />
       <span style={closeButton}>
         <Button className={classes.button} variant="contained" color="secondary" onClick={handleClose}>
           <Typography className={classes.buttonText}>Close</Typography>
         </Button>
       </span>
-      <img src={props.imageURL} className={classes.modalImage}/>
-     </div> 
+    </div>
   )
 }
 
@@ -70,4 +86,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ImageModal))
+export default (connect(mapStateToProps, mapDispatchToProps)(ImageModal))

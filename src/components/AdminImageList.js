@@ -14,8 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import store, { showModalAction, deleteImageThunk } from '../store'
-import EditDialog from './EditDialog';
+import { showModalAction, deleteImageThunk } from '../store'
 
 const useStyles = makeStyles(theme => ({
   root: {

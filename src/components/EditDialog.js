@@ -22,7 +22,6 @@ const EditDialog = (props) => {
     name: modalType === 'EDIT_IMAGE' ? modalProps.name : '',
     category: modalType === 'EDIT_IMAGE' ? modalProps.category : '',
     imageURL: modalType === 'EDIT_IMAGE' ? modalProps.imageURL : '',
-    thumbnailURL: modalType === 'EDIT_IMAGE' ? modalProps.thumbnailURL : '',
     desc: modalType === 'EDIT_IMAGE' ? modalProps.desc : '',
   })
 
@@ -33,20 +32,20 @@ const EditDialog = (props) => {
   const handleClose = () => closeModal()
 
   const validateForm = () => {
-    const { id, name, category, imageURL, thumbnailURL, desc } = values
-    if (name === '' || category === '' || imageURL === ''  || thumbnailURL === ''  || desc === '') (alert('All fields must be filled out.'))
+    const { id, name, category, imageURL, desc } = values
+    if (name === '' || category === '' || imageURL === ''  || desc === '') (alert('All fields must be filled out.'))
     else modalType === 'EDIT_IMAGE' ? handleEditImage() : handleAddImage()
   }
 
   const handleEditImage = () => {
-    const { id, name, category, imageURL, thumbnailURL, desc } = values
-    submitEditModal({ id, name, category, imageURL, thumbnailURL, desc })
+    const { id, name, category, imageURL, desc } = values
+    submitEditModal({ id, name, category, imageURL, desc })
     closeModal()
   }
 
   const handleAddImage = () => {
-    const { name, category, imageURL, thumbnailURL, desc } = values
-    submitAddModal({ name, category, imageURL, thumbnailURL, desc })
+    const { name, category, imageURL, desc } = values
+    submitAddModal({ name, category, imageURL, desc })
     closeModal()
   }
 
@@ -92,15 +91,6 @@ const EditDialog = (props) => {
             label="Image URL"
             value={values.imageURL}
             onChange={handleChange('imageURL')}
-            fullWidth
-          />
-
-          <TextField
-            id="thumbnailURL"
-            margin="dense"
-            label="Thumbnail URL"
-            value={values.thumbnailURL}
-            onChange={handleChange('thumbnailURL')}
             fullWidth
           />
 

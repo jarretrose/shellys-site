@@ -11,9 +11,6 @@ const Image = db.define('image', {
   imageURL: {
     type: Sequelize.TEXT, allowNull: false,
   },
-  thumbnailURL: {
-    type: Sequelize.TEXT, allowNull: false,
-  },
   desc: {
     type: Sequelize.TEXT, allowNull: false,
   },

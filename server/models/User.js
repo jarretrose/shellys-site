@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db');
+const bcrypt = require('bcrypt')
+const SALT_ROUNDS = process.env.SALT_ROUNDS
+const uuid = require('uuid/v4')
 
 const User = db.define('user', {
   id: {
@@ -15,9 +18,8 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  // email will be used to login to services
   email: {
-    type: Sequelize.STRING, 
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
     validate: {
@@ -28,7 +30,7 @@ const User = db.define('user', {
     }
   },
   password: {
-    type: Sequelize.STRING, 
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       len: {
@@ -36,7 +38,18 @@ const User = db.define('user', {
         msg: "Password must be at least six (6) characters."
       }
     }
-  }
+  },
 });
+
+
+User.beforeCreate((user, opt) => {
+  return bcrypt.hash(user.password, SALT_ROUNDS)
+    .then(hash => user.password = hash)
+    .catch(err => { throw new Error() })
+})
+
+User.beforeCreate((user, opt) => {
+  return user.id = uuid();
+})
 
 module.exports = User;

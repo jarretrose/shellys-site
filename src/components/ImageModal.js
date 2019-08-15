@@ -10,9 +10,11 @@ const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
     zIndex: 3000,
-    paddingTop: 100,
+    paddingTop: 10,
+    paddingBottom: 50,
     [theme.breakpoints.down('sm')]: {
       paddingTop: 50,
+      paddingBottom: 50
     },
     left: 0,
     top: 0,
@@ -45,14 +47,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
   },
   imageContainer: {
-    position: 'relative'
+    position: 'relative',
   }
 }))
 
 const closeButton = {
   position: 'absolute',
   bottom: -30,
-  right: 55,
+  right: 100,
   cursor: 'pointer'
 }
 
@@ -70,11 +72,10 @@ const ImageModal = (props) => {
   return (
     <div className={classes.modal}>
 
-      <Typography className={classes.prettyText}>
-        {props.name}
-      </Typography>
-
       <div className={classes.imageContainer}>
+        <Typography className={classes.prettyText}>
+          {props.name}
+        </Typography>
         <img src={props.imageURL} className={classes.modalImage} />
         <div style={closeButton}>
           <Button className={classes.button} variant="contained" color="secondary" onClick={handleClose}>

@@ -4,6 +4,8 @@ import { showModalAction, hideModalAction } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Fab from '@material-ui/core/Fab';
+import CloseIcon from '@material-ui/icons/Close'
 
 // const styles = {
 const useStyles = makeStyles(theme => ({
@@ -32,10 +34,13 @@ const useStyles = makeStyles(theme => ({
     height: 25,
     width: 50
   },
+  fab: {
+    margin: theme.spacing(1),
+  },
   buttonText: {
     fontFamily: "'Satisfy', cursive",
     textTransform: 'none',
-    fontSize: 16,
+    fontSize: 18,
   },
   prettyText: {
     fontFamily: "'Satisfy', cursive",
@@ -51,8 +56,8 @@ const useStyles = makeStyles(theme => ({
 
 const closeButton = {
   position: 'fixed',
-  top: 10,
-  right: 10,
+  top: 0,
+  right: 0,
   cursor: 'pointer'
 }
 
@@ -79,9 +84,12 @@ const ImageModal = (props) => {
         <img src={props.imageURL} className={classes.modalImage} />
 
         <div style={closeButton}>
-          <Button className={classes.button} variant="contained" color="primary" onClick={handleClose}>
-            <Typography className={classes.buttonText}>Close</Typography>
-          </Button>
+          {/* <Button className={classes.button} variant="contained" color="primary" onClick={handleClose}> */}
+          <Fab size='small' color="primary" className={classes.fab}>
+            {/* <Typography className={classes.buttonText}>Close</Typography> */}
+            <CloseIcon />
+          </Fab>
+          {/* </Button> */}
         </div>
 
       {/* </div> */}

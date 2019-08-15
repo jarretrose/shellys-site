@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showModalAction, hideModalAction } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography'
+import Fab from '@material-ui/core/Fab'
 import CloseIcon from '@material-ui/icons/Close'
 
-// const styles = {
 const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
@@ -54,9 +52,6 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     padding: 10,
   },
-  // imageContainer: {
-  //   position: 'relative',
-  // }
 }))
 
 const closeButton = {
@@ -79,26 +74,15 @@ const ImageModal = (props) => {
   // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a simple CSS solution instead and got more or less exactly what I wanted. 
   return (
     <div className={classes.modal} onClick={handleClose}>
-
-      {/* <div className={classes.imageContainer} onClick={handleClose}> */}
-
-        <Typography className={classes.prettyText}>
-          {props.name}
-        </Typography>
-
-        <img src={props.imageURL} className={classes.modalImage} />
-
-        <div style={closeButton}>
-          {/* <Button className={classes.button} variant="contained" color="primary" onClick={handleClose}> */}
-          <Fab size='small' color="secondary" className={classes.fab}>
-            {/* <Typography className={classes.buttonText}>Close</Typography> */}
-            <CloseIcon />
-          </Fab>
-          {/* </Button> */}
-        </div>
-
-      {/* </div> */}
-
+      <Typography className={classes.prettyText}>
+        {props.name}
+      </Typography>
+      <img src={props.imageURL} className={classes.modalImage} />
+      <div style={closeButton}>
+        <Fab size='small' color="secondary" className={classes.fab}>
+          <CloseIcon />
+        </Fab>
+      </div>
     </div>
   )
 }

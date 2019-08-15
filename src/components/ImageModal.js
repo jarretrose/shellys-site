@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
     zIndex: 3000,
-    paddingTop: 100,
+    paddingTop: 50,
     [theme.breakpoints.down('sm')]: {
       paddingTop: 50,
     },
@@ -26,8 +26,12 @@ const useStyles = makeStyles(theme => ({
   modalImage: {
     margin: 'auto',
     display: 'block',
-    maxWidth: '90%',
-    maxHeight: '90%',
+    maxWidth: '95%',
+    maxHeight: '95%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      maxHeight: '100%',
+    },
   },
   button: {
     padding: 0,
@@ -85,7 +89,7 @@ const ImageModal = (props) => {
 
         <div style={closeButton}>
           {/* <Button className={classes.button} variant="contained" color="primary" onClick={handleClose}> */}
-          <Fab size='small' color="primary" className={classes.fab}>
+          <Fab size='small' color="secondary" className={classes.fab}>
             {/* <Typography className={classes.buttonText}>Close</Typography> */}
             <CloseIcon />
           </Fab>

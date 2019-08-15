@@ -1,22 +1,36 @@
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
 import { connect } from 'react-redux';
 import { showModalAction, hideModalAction } from '../store'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
-  dialogPaper: {
+  modal: {
     position: 'fixed',
-    maxWidth: '100vw',
-    maxHeight: '100vh',
+    zIndex: 3000,
+    paddingTop: 100,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
     overflow: 'auto',
+    backgroundColor: 'rgba(0,0,0,.75)'
   },
-  imageStyles: {
+  modalImage: {
     margin: 'auto',
     display: 'block',
-    width: '100%',
-    maxWidth: '700px'
+    maxWidth: '90%',
+    maxHeight: '90%',
   }
+}
+
+const closeButton = {
+    position: 'absolute',
+    bottom: 100,
+    right: 35,
+    color: 'rgba(255,255,255',
+    fontSize: 36,
+    fontFamily: "'Satisfy', cursive",
+    cursor: 'pointer'
 }
 
 const ImageModal = (props) => {
@@ -27,12 +41,12 @@ const ImageModal = (props) => {
   const { closeModal, classes } = props;
   const handleClose = () => closeModal()
 
+  // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a simple CSS solution instead and got more or less exactly what I wanted. 
   return (
-    <div aria-label="full sized image" className={classes.dialogPaper}>
-      <Dialog open={props.modal.open} onClose={handleClose} overflow={'auto'}>
-        <img src={props.imageURL} className={classes.imageStyles}/>
-      </Dialog>
-    </div>
+    <div className={classes.modal}>
+      <span style={closeButton} onClick={handleClose}>Close</span>
+      <img src={props.imageURL} className={classes.modalImage}/>
+     </div> 
   )
 }
 

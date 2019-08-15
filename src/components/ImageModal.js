@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   modal: {
     position: 'fixed',
     zIndex: 3000,
-    paddingTop: 50,
+    paddingTop: 0,
     [theme.breakpoints.down('sm')]: {
       paddingTop: 50,
     },
@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
   modalImage: {
     margin: 'auto',
     display: 'block',
-    maxWidth: '95%',
-    maxHeight: '95%',
+    maxWidth: '90%',
+    maxHeight: '90%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
       maxHeight: '100%',
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   prettyText: {
     fontFamily: "'Satisfy', cursive",
     textTransform: 'none',
-    fontSize: 'calc(16px + 12 * ((100vw - 320px) / 960))',
+    fontSize: 32,
     color: 'rgb(255,255,255)',
     textAlign: 'center',
   },

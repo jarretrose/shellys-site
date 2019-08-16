@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   type: {
     fontFamily: "'Satisfy', cursive",
-    fontSize: 22,
+    fontSize: 'calc(20px + 12 * ((100vw - 320px) / 680))',
     marginBottom: theme.spacing(1)
   },
 }));
@@ -45,11 +45,20 @@ const Gallery = (props) => {
   const classes = useStyles();
   const imageCategory = props.match.params.category;
   const SHOW_IMAGE = 'SHOW_IMAGE'
+  let galleryImages = []
 
   const handleImageClick = (modalType, modalProps) => openModal(modalType, modalProps)
-
+  galleryImages = images.filter(image => image.category === imageCategory)
+  console.log(galleryImages)
+  
   // if the images haven't loaded, do nothing
-  if (!images.length) return <span>No images to load.</span>
+  if (!galleryImages.length) return (
+    <span>
+      <Typography className={classes.type}>
+        No images to load at this time. Please check back later.
+      </Typography>
+    </span>
+  )
 
   return (
     <Fragment>
@@ -58,18 +67,18 @@ const Gallery = (props) => {
         Click on any image to increase size.
       </Typography>
 
-        <Grid container className={classes.root}>
+      <Grid container className={classes.root}>
 
-          {images.filter(image => image.category === imageCategory)
-            .map((img, idx) => (
-              <Grid item className={classes.gridItem} key={img.name} onClick={() => handleImageClick(SHOW_IMAGE, img)}>
-                <span>
-                  <img className={classes.image} src={img.imageURL} alt={img.name} />
-                </span>
-              </Grid>
-            ))}
+        {/* {images.filter(image => image.category === imageCategory) */}
+        {galleryImages.map((img, idx) => (
+            <Grid item className={classes.gridItem} key={img.name} onClick={() => handleImageClick(SHOW_IMAGE, img)}>
+              <span>
+                <img className={classes.image} src={img.imageURL} alt={img.name} />
+              </span>
+            </Grid>
+          ))}
 
-        </Grid>
+      </Grid>
 
     </Fragment>
   )

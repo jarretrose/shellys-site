@@ -7,6 +7,7 @@ const Image = require('../models/Image');
 const getAllImages = (req, res, next) => {
   Image.findAll()
     .then(images => res.send(images))
+    .catch(next)
 };
 
 const getFilteredImages = (req, res, next) => {
@@ -16,6 +17,7 @@ const getFilteredImages = (req, res, next) => {
     }
   })
   .then(images => res.send(images))
+  .catch(next)
 };
 
 const addImage = (req, res, next) => {

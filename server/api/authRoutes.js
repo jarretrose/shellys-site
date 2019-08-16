@@ -5,6 +5,8 @@ const User = require('../models/User');
 const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt')
 
+// I don't think I am properly erroring out of failed login attempts, need to look into that later
+
 const userNotFound = next => {
   return next({ status: 401 })
 };
@@ -18,16 +20,23 @@ const userLogIn = (req, res, next) => {
   const { email, password } = req.body
   User.findOne({
     where: {
-      email: email.toLowerCase(),
-      password: password,
+      email: email.toLowerCase()
     }
   })
-    .then(user => !user ? userNotFound(next) : authCheck(user, password))
     .then(user => {
-      !user.isAuthed ? userNotFound(next) : req.session.userId = user.id
+      if (!user) return userNotFound(next)
+      if (user) authCheck(user, password)
       return user
     })
-    .then(user => req.session.userId ? res.json(user) : userNotFound(next))
+    .then(user => {
+      if (!user.isAuthed) return userNotFound(next)
+      if (user.isAuthed) req.session.userId = user.id
+      return user
+    })
+    .then(user => {
+      if (!req.session.userId) return userNotFound(next)
+      if (req.session.userId) return res.json(user)
+    })
     .catch(next)
 }
 

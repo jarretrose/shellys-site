@@ -38,8 +38,8 @@ const User = db.define('user', {
       }
     }
   },
-  createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
+  createdAt: Sequelize.TIME,
+  updatedAt: Sequelize.TIME,
 });
 
 // User.beforeCreate((user, opt) => {

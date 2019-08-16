@@ -6,8 +6,7 @@ const uuid = require('uuid/v4')
 
 const User = db.define('user', {
   id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
+    type: Sequelize.INTEGER,
     primaryKey: true,
   },
   firstName: {
@@ -39,17 +38,18 @@ const User = db.define('user', {
       }
     }
   },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE,
 });
 
+// User.beforeCreate((user, opt) => {
+//   return bcrypt.hash(user.password, SALT_ROUNDS)
+//     .then(hash => user.password = hash)
+//     .catch(err => { throw new Error() })
+// })
 
-User.beforeCreate((user, opt) => {
-  return bcrypt.hash(user.password, SALT_ROUNDS)
-    .then(hash => user.password = hash)
-    .catch(err => { throw new Error() })
-})
-
-User.beforeCreate((user, opt) => {
-  return user.id = uuid();
-})
+// User.beforeCreate((user, opt) => {
+//   return user.id = uuid();
+// })
 
 module.exports = User;

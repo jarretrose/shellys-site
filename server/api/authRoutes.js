@@ -19,6 +19,7 @@ const userLogIn = (req, res, next) => {
   User.findOne({
     where: {
       email: email.toLowerCase(),
+      password: password,
     }
   })
     .then(user => !user ? userNotFound(next) : authCheck(user, password))

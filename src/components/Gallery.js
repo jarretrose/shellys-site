@@ -49,7 +49,6 @@ const Gallery = (props) => {
 
   const handleImageClick = (modalType, modalProps) => openModal(modalType, modalProps)
   galleryImages = images.filter(image => image.category === imageCategory)
-  console.log(galleryImages)
   
   // if the images haven't loaded, do nothing
   if (!galleryImages.length) return (

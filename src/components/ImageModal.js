@@ -8,11 +8,15 @@ import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles(theme => ({
   modal: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
     position: 'fixed',
     zIndex: 3000,
     paddingTop: 0,
     [theme.breakpoints.down('sm')]: {
       paddingTop: 50,
+      flexDirection: 'column'
     },
     left: 0,
     top: 0,
@@ -23,12 +27,18 @@ const useStyles = makeStyles(theme => ({
   },
   modalImage: {
     margin: 'auto',
-    display: 'block',
-    maxWidth: '90%',
-    maxHeight: '90%',
+    maxWidth: '95%',
+    maxHeight: '95%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
       maxHeight: '100%',
+    },
+  },
+  imageText: {
+    margin: 'auto',
+    maxWidth: '50%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%'
     },
   },
   button: {
@@ -74,10 +84,11 @@ const ImageModal = (props) => {
   // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a simple CSS solution instead and got more or less exactly what I wanted. 
   return (
     <div className={classes.modal} onClick={handleClose}>
-      <Typography className={classes.prettyText}>
-        {props.name}
-      </Typography>
       <img src={props.imageURL} className={classes.modalImage} />
+      <div className={classes.imageText}>
+        <Typography className={classes.prettyText}>{props.name}</Typography>
+        <Typography className={classes.prettyText}>{props.desc}</Typography>
+      </div>
       <div style={closeButton}>
         <Fab size='small' color="secondary" className={classes.fab}>
           <CloseIcon />

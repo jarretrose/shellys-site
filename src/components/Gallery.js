@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
     [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
       justifyContent: 'center'
     },
   },

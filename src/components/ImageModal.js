@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   modalImage: {
     margin: 'auto',
-    padding: 10,
+    padding: 20,
     maxWidth: '100%',
     maxHeight: '100%',
   },

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -88,11 +87,6 @@ const Nav = (props) => {
         <ListItem button component={Link} to={'/about'}
           onClick={mobileOpen ? handleDrawerToggle : null}>
           <ListItemText classes={{ primary: classes.navStyles }} primary='About Me' />
-        </ListItem>
-
-        <ListItem button component={Link} to={'/contact'}
-          onClick={mobileOpen ? handleDrawerToggle : null}>
-          <ListItemText classes={{ primary: classes.navStyles }} primary='Contact' />
         </ListItem>
 
         <ListItem button component={Link} to={'/admin'}

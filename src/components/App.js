@@ -5,7 +5,6 @@ import Nav from './Nav.js';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import Gallery from './Gallery';
 import About from './About';
-import Contact from './Contact';
 import { connect } from 'react-redux';
 import UserPage from './UserPage';
 import Login from './Login';
@@ -58,7 +57,6 @@ class App extends Component {
               <Switch>
                 <Route path='/images/:category' component={Gallery} />
                 <Route path='/about' component={About} />
-                <Route path='/contact' component={Contact} />
                 <Route path='/login' component={Login} />
                 <Route path='/admin' component={UserPage} />
               </Switch>

@@ -14,7 +14,6 @@ const Contact = props => {
 
   return (
     <Fragment>
-      <CssBaseline />
       Contact page coming soon.
     </Fragment>
   );

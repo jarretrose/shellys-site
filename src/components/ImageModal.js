@@ -75,6 +75,7 @@ const ImageModal = (props) => {
   const handleClose = () => closeModal()
 
   // Material-UI's Dialog and Modal are nice... but not easily customized. I was wrestling with getting the modal to display larger and cleanly on mobile devices and it just wasn't cooperating because of all the internals. I went with a CSS solution instead and got more or less exactly what I wanted. 
+  // At some point I may switch the code below to use the Grid component... but I don't know if that is actually necessary.
   return (
     <div className={classes.root} onClick={handleClose}>
 

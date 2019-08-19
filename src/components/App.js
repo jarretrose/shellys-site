@@ -48,9 +48,10 @@ class App extends Component {
 
     return (
       <Fragment>
+        <CssBaseline />
         <RootModal />
           <div className={classes.root}>
-            <CssBaseline />
+
             <Nav />
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />

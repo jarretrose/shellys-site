@@ -55,9 +55,6 @@ const useStyles = makeStyles(theme => ({
     color: 'rgb(255,255,255)',
     textAlign: 'left',
   },
-  prettText2: {
-    fontSize: 100,
-  }
 }))
 
 const closeButton = {

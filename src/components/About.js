@@ -9,8 +9,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const About = props => {
-  const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <Fragment>

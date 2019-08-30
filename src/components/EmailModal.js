@@ -36,12 +36,10 @@ const EmailModal = (props) => {
   }
 
   return (
-    <div>
+    <form action="https://formspree.io/shellysketches@gmail.com" method="POST">
       <Dialog
         open={modal.open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        
-        <form action="https://formspree.io/shellysketches@gmail.com" method="POST">
-
+      
         <DialogTitle id="form-dialog-title">Contact Me!</DialogTitle>
 
         <DialogContent>
@@ -85,16 +83,15 @@ const EmailModal = (props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel} color="primary">
+          <Button type='button' onClick={handleCancel} color="primary">
             Cancel
           </Button>
           <Button type='submit' onClick={handleSubmit} color="primary">
             Submit
           </Button>
         </DialogActions>
-        </form>
       </Dialog>
-    </div>
+      </form>
   );
 }
 

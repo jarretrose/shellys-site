@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import { showModalAction, hideModalAction } from '../store';
+import { hideModalAction } from '../store';
 
 const EmailModal = (props) => {
 
@@ -26,12 +26,6 @@ const EmailModal = (props) => {
   }
 
   const handleCancel = () => {
-    closeModal()
-  }
-
-  const handleSubmit = (e) => {
-    // emails stuffs go here?
-
     closeModal()
   }
 
@@ -89,8 +83,6 @@ const EmailModal = (props) => {
           <Button type='submit' form='contactForm' color="primary">
             Submit
           </Button>
-          
-
         </DialogActions>
         </form>
       </Dialog>

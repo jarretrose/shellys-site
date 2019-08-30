@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   gridItem: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   avatar: {
     margin: 10,
@@ -84,12 +84,7 @@ const About = props => {
               <Link href='https://society6.com/shellysketches' target='_blank' rel='noreferrer'>
                 <img src='/images/society6.jpg' alt='Society6 Shop' className={classes.icons} style={{ borderRadius: 10 }} />
               </Link>
-
             </Grid>
-
-            {/* <Grid item xs={2} className={classes.gridItem}>
-              <img src='/images/twitter.png' alt='Twitter Icon' className={classes.icons} />
-            </Grid> */}
 
             <Grid item xs={2} className={classes.gridItem}>
               <Button color="primary" onClick={() => handleEmailModal(EMAIL_MODAL)}>

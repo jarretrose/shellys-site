@@ -3,7 +3,6 @@ const router = express.Router();
 const userRoutes = require('./userRoutes');
 const imageRoutes = require('./imageRoutes');
 const authRoutes = require('./authRoutes');
-const contactRoutes = require('./contactRoutes');
 
 /* 
 all routes mounted on /api
@@ -17,6 +16,5 @@ all routes mounted on /api
 router.use('/images', imageRoutes);
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
-// router.use('/contact', contactRoutes);
 
 module.exports = router;

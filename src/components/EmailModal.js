@@ -29,17 +29,17 @@ const EmailModal = (props) => {
     closeModal()
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     // emails stuffs go here?
 
     closeModal()
   }
 
   return (
-    <form action="https://formspree.io/shellysketches@gmail.com" method="POST">
       <Dialog
         open={modal.open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      
+
+        <form id='contactForm' action="https://formspree.io/shellysketches@gmail.com" method="POST">
         <DialogTitle id="form-dialog-title">Contact Me!</DialogTitle>
 
         <DialogContent>
@@ -86,12 +86,14 @@ const EmailModal = (props) => {
           <Button type='button' onClick={handleCancel} color="primary">
             Cancel
           </Button>
-          <Button type='submit' onClick={handleSubmit} color="primary">
+          <Button type='submit' form='contactForm' color="primary">
             Submit
           </Button>
+          
+
         </DialogActions>
+        </form>
       </Dialog>
-      </form>
   );
 }
 

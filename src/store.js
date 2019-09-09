@@ -98,11 +98,25 @@ const imageReducer = (state = [], action) => {
 // AUTH REDUX
 // *********** AUTH ACTION TYPES
 const GET_USER = 'GET_USER';
+const EDIT_USER = 'EDIT_USER';
 
 // *********** AUTH ACTION CREATORS
 const gotUser = (user) => ({ type: GET_USER, user})
+const editUserAction = (user) => ({ type: EDIT_USER, user });
+
+
 
 // *********** AUTH THUNKS
+const editUserThunk = (user) => {
+  return (dispatch) => {
+    axios.put(`/api/auth/${user.id}`, user)
+      .then(response => response.data)
+      .then(user => dispatch(editImageAction(user)))
+      .then(() => alert('User edited successfully!'))
+      .catch(err => alert('Something went wrong.'))
+  }
+}
+
 const loginThunk = (userInfo) => {
   return(dispatch) => {
     return axios.post('/api/auth/login', userInfo)
@@ -135,6 +149,8 @@ const logoutThunk = () => {
 const authReducer = (state = {}, action) => {
   switch(action.type) {
     case GET_USER:
+      return action.user;
+    case EDIT_USER:
       return action.user;
     default:
       return state;
@@ -204,7 +220,9 @@ export {
   showModalAction,
   hideModalAction,
   editImageThunk,
-  addImageThunk
+  addImageThunk,
+  editUserAction,
+  editUserThunk
 };
 
 

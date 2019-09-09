@@ -1,14 +1,16 @@
 import React from 'react'
-import EditDialog from './EditDialog'
+import EditOrAddImage from './EditOrAddImage'
 import ImageModal from './ImageModal'
 import EmailModal from './EmailModal'
+import EditInfo from './EditInfo'
 import { connect } from 'react-redux'
 
 const MODAL_COMPONENTS = {
-  'EDIT_IMAGE': EditDialog,
-  'ADD_IMAGE': EditDialog,
+  'EDIT_IMAGE': EditOrAddImage,
+  'ADD_IMAGE': EditOrAddImage,
   'SHOW_IMAGE': ImageModal,
   'EMAIL_MODAL': EmailModal,
+  'EDIT_INFO': EditInfo,
 }
 
 const RootModal = ({ modalType, modalProps }) => {

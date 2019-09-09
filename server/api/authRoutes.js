@@ -6,7 +6,6 @@ const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt')
 
 // I don't think I am properly erroring out of failed login attempts, need to look into that later
-
 const userNotFound = next => {
   return next({ status: 401 })
 };
@@ -54,9 +53,30 @@ const userLogOut = (req, res, next) => {
   res.status(204).end()
 }
 
+const editUser = (req, res, next) => {
+  User.findByPk(req.params.id)
+    .then(response => response.update(req.body))
+    .then(response => res.send(response))
+    .catch(next)
+}
+
+const getAboutInfo = (req, res, next) => {
+  User.findOne({
+    where: {
+      email: 'bongem27@gmail.com'
+    }
+  })
+  .then(user => res.send(user.about));
+};
+
+
+// ROUTE HANDLERS
+
 // route handlers
 router.delete('/logout', userLogOut)
 router.get('/me', checkForUser)
 router.post('/login', userLogIn)
+router.get('/aboutme', getAboutInfo);
+router.put('/:id', editUser)
 
 module.exports = router;

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { showModalAction } from '../store';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +44,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left',
     color: theme.palette.text.secondary,
   },
+  name: {
+    // padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    textAlign: 'center',
+    fontFamily: "'Satisfy', cursive",
+    color: 'white',
+  },
   icons: {
     width: 'calc(30px + 30 * ((100vw - 320px) / 960))',
     height: 'calc(30px + 30 * ((100vw - 320px) / 960))',
@@ -59,9 +67,9 @@ const About = props => {
   const EMAIL_MODAL = 'EMAIL_MODAL';
 
   const [aboutMeInfo, setAboutMeInfo] = useState('');
-  
+
   useEffect(() => {
-    axios.get('/api/users/aboutme')
+    axios.get('/api/auth/aboutme')
       .then(res => setAboutMeInfo(res.data))
   })
 
@@ -73,6 +81,15 @@ const About = props => {
 
         <Grid item container xs={12} className={classes.gridItem} >
           <Avatar alt="Shelly's Avatar" src='/images/shellAvatar.png' className={classes.avatar} />
+
+          <Grid item container xs={12} className={classes.gridItem}>
+            <Grid item xs={6} className={classes.gridItem}>
+              <Typography variant='h3' className={classes.name}
+                style={{'textShadow': '2px 2px 2px black, 0 0 .5em rgba(0,0,0,.5)'}}>
+                Hi, I'm Shelly!
+            </Typography>
+            </Grid>
+          </Grid>
 
           <Grid container spacing={3} className={classes.iconContainer}>
 
@@ -103,7 +120,7 @@ const About = props => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} >
+        <Grid item xs={12} sm={9} >
           <Paper className={classes.paper}>
             {aboutMeInfo}
           </Paper>
@@ -114,10 +131,12 @@ const About = props => {
   );
 };
 
+const mapStateToProps = ({ user }) => ({ user })
+
 const mapDispatchToProps = (dispatch) => {
   return {
     openModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
   }
 }
 
-export default connect(null, mapDispatchToProps)(About);
+export default connect(mapStateToProps, mapDispatchToProps)(About);

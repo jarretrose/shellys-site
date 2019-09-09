@@ -27,13 +27,14 @@ const styles = theme => ({
 
 
 class UserPage extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       allImagesIsVisible: false,
     }
     this.handleClickAddImage = this.handleClickAddImage.bind(this);
     this.handleClickListAllImages = this.handleClickListAllImages.bind(this);
+    this.handleClickEditInfo = this.handleClickEditInfo.bind(this);
   }
 
   handleClickListAllImages() {
@@ -50,6 +51,12 @@ class UserPage extends Component {
     openModal(ADD_IMAGE, null)
   }
 
+  handleClickEditInfo() {
+    const { openModal, user } = this.props;
+    const EDIT_INFO = 'EDIT_INFO'
+    openModal(EDIT_INFO, user)
+  }
+
   render() {
     const { classes, user, handleClickLogout } = this.props;
     const { allImagesIsVisible } = this.state;
@@ -59,12 +66,12 @@ class UserPage extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.welcome}>
-
           <Typography variant="h5" gutterBottom>Welcome Back, {user.firstName}!</Typography>
           <Box display="flex" flexDirection="row">
             <Button variant="contained" color="secondary" className={classes.button} onClick={handleClickLogout}>Logout</Button>
             <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickListAllImages}>All Images</Button>
             <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickAddImage}>Add Image</Button>
+            <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClickEditInfo}>Edit Info</Button>
           </Box>
 
         </div>
@@ -84,7 +91,6 @@ const mapDispatchToProps = dispatch => {
   return {
     handleClickLogout: () => (dispatch(logoutThunk())),
     openModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
-
   }
 }
 

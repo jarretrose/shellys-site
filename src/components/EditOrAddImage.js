@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { showModalAction, hideModalAction, editImageThunk, addImageThunk } from '../store'
 import MenuItem from '@material-ui/core/MenuItem';
 
-const EditDialog = (props) => {
+const EditOrAddImage = props => {
 
   if (!props.modal.modalType) return <span />
 
@@ -33,7 +33,7 @@ const EditDialog = (props) => {
 
   const validateForm = () => {
     const { id, name, category, imageURL, desc } = values
-    if (name === '' || category === '' || imageURL === ''  || desc === '') (alert('All fields must be filled out.'))
+    if (name === '' || category === '' || imageURL === '' || desc === '') (alert('All fields must be filled out.'))
     else modalType === 'EDIT_IMAGE' ? handleEditImage() : handleAddImage()
   }
 
@@ -64,72 +64,70 @@ const EditDialog = (props) => {
   }
 
   return (
-    <div>
-      <Dialog
-        open={props.modal.open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">{modalTitle}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {modalSubtitle}
-          </DialogContentText>
+    <Dialog
+      open={props.modal.open}
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">{modalTitle}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {modalSubtitle}
+        </DialogContentText>
 
-          <TextField
-            id="name"
-            margin="dense"
-            label="Image Name"
-            value={values.name}
-            onChange={handleChange('name')}
-            fullWidth
-          />
+        <TextField
+          id="name"
+          margin="dense"
+          label="Image Name"
+          value={values.name}
+          onChange={handleChange('name')}
+          fullWidth
+        />
 
-          <TextField
-            id="imageURL"
-            margin="dense"
-            label="Image URL"
-            value={values.imageURL}
-            onChange={handleChange('imageURL')}
-            fullWidth
-          />
+        <TextField
+          id="imageURL"
+          margin="dense"
+          label="Image URL"
+          value={values.imageURL}
+          onChange={handleChange('imageURL')}
+          fullWidth
+        />
 
-          <TextField
-            id="desc"
-            margin="dense"
-            label="Short Description"
-            value={values.desc}
-            onChange={handleChange('desc')}
-            fullWidth
-          />
+        <TextField
+          id="desc"
+          margin="dense"
+          label="Short Description"
+          value={values.desc}
+          onChange={handleChange('desc')}
+          fullWidth
+        />
 
-          <TextField
-            select
-            fullWidth
-            margin="dense"
-            id="category"
-            label="Category"
-            value={values.category}
-            onChange={handleChange('category')}
-          >
-            <MenuItem key='catoriginals' value='originals'>Originals</MenuItem>
-            <MenuItem key='catcopywork' value='copywork'>Copywork</MenuItem>
-            <MenuItem key='catpostits' value='postits'>Post Its</MenuItem>
-          </TextField>
+        <TextField
+          select
+          fullWidth
+          margin="dense"
+          id="category"
+          label="Category"
+          value={values.category}
+          onChange={handleChange('category')}
+        >
+          <MenuItem key='catoriginals' value='originals'>Originals</MenuItem>
+          <MenuItem key='catcopywork' value='copywork'>Copywork</MenuItem>
+          <MenuItem key='catpostits' value='postits'>Post Its</MenuItem>
+        </TextField>
 
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancel
           </Button>
 
-          <Button onClick={validateForm} color="primary">
-            {submitButton}
-          </Button>
+        <Button onClick={validateForm} color="primary">
+          {submitButton}
+        </Button>
 
-        </DialogActions>
-      </Dialog>
-    </div>
+      </DialogActions>
+    </Dialog>
   );
 }
 
@@ -144,4 +142,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(EditOrAddImage)

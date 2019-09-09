@@ -104,14 +104,12 @@ const EDIT_USER = 'EDIT_USER';
 const gotUser = (user) => ({ type: GET_USER, user})
 const editUserAction = (user) => ({ type: EDIT_USER, user });
 
-
-
 // *********** AUTH THUNKS
 const editUserThunk = (user) => {
   return (dispatch) => {
     axios.put(`/api/auth/${user.id}`, user)
       .then(response => response.data)
-      .then(user => dispatch(editImageAction(user)))
+      .then(user => dispatch(editUserAction(user)))
       .then(() => alert('User edited successfully!'))
       .catch(err => alert('Something went wrong.'))
   }
@@ -222,7 +220,7 @@ export {
   editImageThunk,
   addImageThunk,
   editUserAction,
-  editUserThunk
+  editUserThunk,
 };
 
 

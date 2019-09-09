@@ -60,10 +60,22 @@ const editUser = (req, res, next) => {
     .catch(next)
 }
 
+const getShellyInfo = (req, res, next) => {
+  User.findOne({
+    where: {
+      id: 'cccdde49-080c-4517-b395-49b6848b27c6'
+    }
+  })
+  .then(user => {
+    const { id, firstName, lastName, email, about } = user;
+    res.send({id, firstName, lastName, email, about })
+  })
+};
+
 const getAboutInfo = (req, res, next) => {
   User.findOne({
     where: {
-      email: 'bongem27@gmail.com'
+      id: 'cccdde49-080c-4517-b395-49b6848b27c6'
     }
   })
   .then(user => res.send(user.about));
@@ -78,5 +90,6 @@ router.get('/me', checkForUser)
 router.post('/login', userLogIn)
 router.get('/aboutme', getAboutInfo);
 router.put('/:id', editUser)
+router.get('/shelly', getShellyInfo)
 
 module.exports = router;

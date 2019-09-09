@@ -95,16 +95,11 @@ const EditInfo = props => {
         </Button>
 
       </DialogActions>
-
-
-
     </Dialog>
   )
-
 }
 
 const mapStateToProps = ({ user, modal }) => ({ user, modal })
-
 
 const mapDispatchToProps = dispatch => {
   return {

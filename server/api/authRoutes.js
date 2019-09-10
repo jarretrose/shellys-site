@@ -63,7 +63,7 @@ const editUser = (req, res, next) => {
 const getShellyInfo = (req, res, next) => {
   User.findOne({
     where: {
-      id: 'cccdde49-080c-4517-b395-49b6848b27c6'
+      id: 'a7e8de32-fd8a-412f-ad59-e22785341f76'
     }
   })
   .then(user => {
@@ -75,7 +75,7 @@ const getShellyInfo = (req, res, next) => {
 const getAboutInfo = (req, res, next) => {
   User.findOne({
     where: {
-      id: 'cccdde49-080c-4517-b395-49b6848b27c6'
+      id: 'a7e8de32-fd8a-412f-ad59-e22785341f76'
     }
   })
   .then(user => res.send(user.about));
